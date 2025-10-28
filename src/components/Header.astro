@@ -1,0 +1,67 @@
+---
+import astroLogo from '../assets/astro.svg';
+import background from '../assets/fondo.svg';
+import '../styles/global.css';
+
+---
+
+
+
+<div class="container">
+	<img src={background.src} alt="Background" class="background" />
+    <header class="header">
+        <div class="logo">
+            <img src={astroLogo.src} alt="Astro Logo" width="50" />
+        </div>
+        <div class="links">
+            <a href="/">Home</a>
+            <a href="">🔍</a>
+            <a href="">⚙️</a>
+            <a href="">🏫</a>
+        </div>
+    </header>
+</div>
+
+<style>
+	.container{
+
+	}
+    .header{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 30px;
+        border-radius: 10px;
+    }
+
+	.background {
+		position: fixed;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		z-index: -1;
+		pointer-events: none;
+	}
+
+    .links{
+        display: flex;
+        gap: 20px;
+    }
+
+    .links a{
+        text-decoration: none;
+        color: white;
+        font-weight: 400;
+        font-size: 30px;
+    }
+	
+</style>
+
+<script>
+    // optional chaining — no error if null
+    document.querySelector('.acceder')?.addEventListener('click', () => {
+        window.location.href = '/index';
+    });
+</script>

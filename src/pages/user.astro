@@ -1,0 +1,83 @@
+---
+import Header from '../components/Header.astro';
+import Welcome from '../components/Welcome.astro';
+import Layout from '../layouts/Layout.astro';
+import noti from '../assets/noti.svg';
+import '../styles/global.css';
+
+---
+
+
+<Layout>
+    <Header />
+    <div class="titulo">
+        <h2>Assistencia Estudiantil</h2>
+        <h2>🔔🤓</h2>
+    </div>
+    <div class="bloques">
+        <div class="card">
+            <img alt="registro">
+        </div>
+        <div class="card">
+            <img alt="estadisticas">
+        </div>
+        <div class="card">
+            <img alt="notificaciones" src={noti.src}>
+        </div>
+    </div>
+</Layout>
+
+<style>
+    .titulo {
+        margin-top: 20%;
+        text-align: center;
+        color: rgb(173, 173, 173);
+        font-size: 3rem;
+        text-shadow: 2px 2px 2px rgb(51, 51, 51);
+    }
+    .bloques{
+        display: flex;
+        justify-content: center;
+        background-color: rgba(2, 255, 234, 0.1);
+        justify-content: space-around;
+        padding: 100px;
+        margin-top: 200px;
+    }
+
+    .card {
+        width: 260px;
+        height: 220px;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+        border: 1px solid rgba(0,0,0,0.06);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+        text-align: center;
+        transition: transform .18s ease, box-shadow .18s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 14px 30px rgba(0,0,0,0.12);
+    }
+
+    .card img {
+        width: 84px;
+        height: 84px;
+        object-fit: contain;
+        margin-bottom: 0.8rem;
+    }
+
+    .card p {
+        margin: 0;
+        color: #222;
+        font-size: 1.05rem;
+        font-weight: 500;
+    }
+
+
+</style>
