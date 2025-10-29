@@ -1,0 +1,59 @@
+---
+import Sample from '../components/sample.astro';
+import Layout from '../layouts/Layout.astro';
+import gato from '../assets/gato.png';
+import '../styles/global.css';
+---
+
+<Layout>
+<Sample>
+    <div class="container-registro">
+        <div class="datos-Alumno">
+            <h1 class="nombre">Juan Perez</h1>
+            <img class="foto-perfil" src={gato.src} alt="perfil-img">
+        </div>
+        <div class="cards">
+            <div class="presents">
+
+            </div>
+            <div class="retards">
+
+            </div>
+            <div class="faltes">
+
+            </div>
+            <div class="justificades">
+
+            </div>
+        </div>
+        
+    </div>
+</Sample>
+</Layout>
+
+<style>
+    .container-registro{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 100px;
+        background-color: rgba(0, 195, 255, 0.368);
+        border-radius: 20px;
+    }
+    .container-registro h1{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .foto-perfil{
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        margin-bottom: 30px;
+    }
+
+
+</style>

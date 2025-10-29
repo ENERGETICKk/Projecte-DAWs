@@ -1,8 +1,9 @@
 ---
 import Header from '../components/Header.astro';
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
 import noti from '../assets/noti.svg';
+import estats from '../assets/estadisticas.png';
+import registro from '../assets/registro.png';
 import '../styles/global.css';
 
 ---
@@ -16,15 +17,30 @@ import '../styles/global.css';
     </div>
     <div class="bloques">
         <div class="card">
-            <img alt="registro">
+
+            <a href="/registro">
+                <img alt="registro" src={registro.src}>
+            </a>
+
         </div>
         <div class="card">
-            <img alt="estadisticas">
+
+            <a href="">
+                <img alt="estadisticas" src={estats.src}>
+            </a>
+
         </div>
         <div class="card">
-            <img alt="notificaciones" src={noti.src}>
+
+            <a href="">
+                <img alt="notificaciones" src={noti.src}>
+            </a>
+            
         </div>
     </div>
+    <footer>
+        <p style="text-align: center; color: grey; padding: 50px;">&copy; 2026 JKA Systems. All rights reserved.</p>
+    </footer>
 </Layout>
 
 <style>
@@ -42,12 +58,14 @@ import '../styles/global.css';
         justify-content: space-around;
         padding: 100px;
         margin-top: 200px;
+        margin-bottom: 200px;
+        border-radius: 20px;
     }
 
     .card {
         width: 260px;
         height: 220px;
-        background: #fff;
+        background: rgba(255, 255, 255, 0.3);
         border-radius: 12px;
         box-shadow: 0 6px 18px rgba(0,0,0,0.06);
         border: 1px solid rgba(0,0,0,0.06);
