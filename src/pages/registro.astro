@@ -2,9 +2,12 @@
 import Layout from '../layouts/Layout.astro';
 import gato from '../assets/gato.png';
 import '../styles/global.css';
+import Sample from '../components/sample.astro';
+import CardLD from '../components/cardLD.astro';
 ---
 
 <Layout>
+<Sample>
     <div class="container-registro">
         <div class="datos-Alumno">
             <h1 class="nombre">Juan Perez</h1>
@@ -26,7 +29,13 @@ import '../styles/global.css';
         </div>
         
     </div>
+    <div class="test">
+        <CardLD />
+        <CardLD />
+    </div>
 </Layout>
+</Sample>
+
 
 <style>
     .container-registro{
@@ -56,9 +65,40 @@ import '../styles/global.css';
         display: flex;
         justify-content: center;
         gap: 20px;
-        flex-wrap: wrap;
-        border: 3px solid black;
-        
+        flex-wrap: wrap;        
+    }
+
+    .cards > div {
+        background-color: white;        /* Fondo de cada card */
+        border-radius: 15px;            /* Bordes redondeados */
+        padding: 50px;                  /* Espacio interno */
+        width: 150px;                    /* Ancho fijo, pero se puede hacer % */
+        text-align: center;             /* Centrar texto */
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Sombra suave */
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: default;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .cards > div:hover {
+        transform: translateY(-5px);    /* Efecto hover */
+        box-shadow: 0 10px 15px rgba(0,0,0,0.2);
+    }
+
+    .cards h2 {
+        margin: 0;
+        font-size: 1.2rem;
+        color: #333;
+    }
+
+    .test{
+        display: flex;
+        margin-top: 50px;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 50px;
     }
 
 </style>

@@ -44,13 +44,50 @@ import '../styles/global.css';
 </Layout>
 
 <style>
+    
+    
     .titulo {
-        margin-top: 20%;
-        text-align: center;
-        color: rgb(173, 173, 173);
-        font-size: 3rem;
-        text-shadow: 2px 2px 2px rgb(51, 51, 51);
+    text-align: center;
+    font-size: 50px;
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: radial-gradient(circle at top, #0a0a0f, #000);
+    border: 1px solid rgba(0, 255, 200, 0.3);
+    box-shadow: 0 0 20px rgba(0, 255, 200, 0.2);
+    border-radius: 1rem;
+    position: relative;
+    overflow: hidden;
     }
+
+    .titulo::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, rgba(0,255,200,0.2), transparent, rgba(0,255,200,0.2));
+    animation: moveLight 4s linear infinite;
+    }
+
+    @keyframes moveLight {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+    }
+
+    .titulo h2 {
+    font-family: "Orbitron", "Segoe UI", sans-serif;
+    color: #00ffc8;
+    text-shadow: 0 0 10px #00ffc8, 0 0 20px #00bfa5;
+    margin: 0.3rem 0;
+    letter-spacing: 1px;
+    transition: transform 0.3s ease, text-shadow 0.3s ease;
+    }
+
+    .titulo h2:hover {
+    transform: scale(1.05);
+    text-shadow: 0 0 20px #00ffc8, 0 0 40px #00bfa5;
+    }
+
+
+
     .bloques{
         display: flex;
         justify-content: center;
