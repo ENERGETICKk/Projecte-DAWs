@@ -44,48 +44,68 @@ import '../styles/global.css';
 </Layout>
 
 <style>
-    
-    
+
     .titulo {
-    text-align: center;
-    font-size: 50px;
-    margin: 2rem 0;
-    padding: 1.5rem;
-    background: radial-gradient(circle at top, #0a0a0f, #000);
-    border: 1px solid rgba(0, 255, 200, 0.3);
-    box-shadow: 0 0 20px rgba(0, 255, 200, 0.2);
-    border-radius: 1rem;
     position: relative;
+    text-align: center;
+    padding: 2.5rem 1rem;
+    margin: 3rem auto;
+    max-width: 900px;
+    border-radius: 1.2rem;
+    background: linear-gradient(135deg, #0b0014, #120024 60%, #220040);
+    box-shadow: 0 0 25px rgb(255, 238, 3);
     overflow: hidden;
     }
 
     .titulo::before {
     content: "";
     position: absolute;
-    inset: 0;
-    background: linear-gradient(120deg, rgba(0,255,200,0.2), transparent, rgba(0,255,200,0.2));
-    animation: moveLight 4s linear infinite;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(
+        from 0deg,
+        rgba(255, 0, 255, 0.1),
+        rgba(0, 255, 255, 0.2),
+        rgba(255, 0, 255, 0.1)
+    );
+    animation: rotateGlow 8s linear infinite;
+    z-index: 0;
     }
 
-    @keyframes moveLight {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
+    @keyframes rotateGlow {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
     }
 
     .titulo h2 {
-    font-family: "Orbitron", "Segoe UI", sans-serif;
-    color: #00ffc8;
-    text-shadow: 0 0 10px #00ffc8, 0 0 20px #00bfa5;
-    margin: 0.3rem 0;
-    letter-spacing: 1px;
-    transition: transform 0.3s ease, text-shadow 0.3s ease;
+    position: relative;
+    z-index: 1;
+    font-family: "Rajdhani", sans-serif;
+    text-transform: uppercase;
+    color: #e0dfff;
+    letter-spacing: 3px;
+    margin: 0.5rem 0;
+    font-weight: 700;
+    font-size: 2rem;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+    }
+
+    .titulo h2:first-child {
+    color: #003cff;
+    text-shadow: 0 0 10px #1910d1, 0 0 25px #f6ff00;
+    }
+
+    .titulo h2:last-child {
+    color: #66ffff;
+    text-shadow: 0 0 10px #66ffff, 0 0 25px #00ccff;
     }
 
     .titulo h2:hover {
-    transform: scale(1.05);
-    text-shadow: 0 0 20px #00ffc8, 0 0 40px #00bfa5;
+    color: #fff;
+    text-shadow: 0 0 20px #0442ff, 0 0 40px #00ffff;
     }
-
 
 
     .bloques{
