@@ -1,210 +1,201 @@
 ---
-import '../styles/global.css'
-import { supabase } from "../scripts/formDB-conexion.js";
-
-async function handleSubmit(event) {
-  event.preventDefault();
-
-  const formData = new FormData(event.target);
-  const nombre = formData.get("nombre");
-  const email = formData.get("email");
-
-  const { data, error } = await supabase.from("usuarios").insert([
-    { nombre, email, fecha_creacion: new Date().toISOString() }
-  ]);
-
-  if (error) {
-    alert("❌ Error: " + error.message);
-  } else {
-    alert("✅ Usuario insertado correctamente");
-  }
-}
+import '../styles/global.css';
 ---
 
-<h1>Donar d'Alta Usuaris</h1>
-<form id="user-form" class="form" onsubmit={handleSubmit}>
-    <div class="form-container">
-        <li>
-            <label for="nombre" class="form-label">Nombre</label>
-            <input type="text" id="nombre" name="nombre" placeholder="Nom de l'estudiant" class="input-field" required />
-        </li>
-        <li>
-            <label for="apellidos" class="form-label">Apellidos</label>
-            <input type="text" id="apellidos" name="apellidos" placeholder="Cognoms de l'estudiant" class="input-field" required />
-        </li>
-        <li>
-            <label for="email" class="form-label">Email</label>
-            <input type="email" id="email" name="email" placeholder="Email de l'estudiant" class="input-field" required />
-        </li>
-        <li>
-            <label for="tipo_user" class="form-label">Tipus de Usuari</label>
-            <select id="tipo_user" name="tipo_user" class="input-field" required>
-                <option value="estudiant">Estudiant</option>
-                <option value="professor">Professor</option>
-                <option value="admin">Administrador</option>
-            </select>
-        </li>
-        <button type="submit" class="submit">Enviar</button>
-        <div id="mensaje" class="mensaje"></div>
-    </div>
+<h1>Dar de Alta Usuarios</h1>
+<form id="user-form" class="form">
+  <div class="form-container">
+    <li>
+      <label for="nombre" class="form-label">Nombre</label>
+      <input type="text" id="nombre" name="nombre" placeholder="Nombre del estudiante" class="input-field" required />
+    </li>
+    <li>
+      <label for="apellidos" class="form-label">Apellidos</label>
+      <input type="text" id="apellidos" name="apellidos" placeholder="Apellidos del estudiante" class="input-field" required />
+    </li>
+    <li>
+      <label for="email" class="form-label">Email</label>
+      <input type="email" id="email" name="email" placeholder="Email del estudiante" class="input-field" required />
+    </li>
+    <li>
+      <label for="tipo_user" class="form-label">Tipo de Usuario</label>
+      <select id="tipo_user" name="tipo_user" class="input-field" required>
+        <option value="estudiante">Estudiante</option>
+        <option value="profesor">Profesor</option>
+        <option value="administrador">Administrador</option>
+      </select>
+    </li>
+    <button type="submit" class="submit">Enviar</button>
+    <div id="mensaje" class="mensaje"></div>
+  </div>
 </form>
 
 <script type="module">
-    import { supabase } from '../../BBDD-Api/supabaseClient.js';
+const form = document.getElementById('user-form');
+const mensaje = document.getElementById('mensaje');
 
-    const form = document.getElementById('user-form');
-    const mensaje = document.getElementById('mensaje');
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
 
-    form?.addEventListener('submit', async (e) => {
-        e.preventDefault();
+  const formData = new FormData(form);
+  const userData = {
+    nombre: formData.get('nombre'),
+    apellidos: formData.get('apellidos'),
+    email: formData.get('email'),
+    tipo_user: formData.get('tipo_user')
+  };
 
-        const formData = new FormData(form);
-        const userData = {
-            nombre: formData.get('nombre'),
-            apellidos: formData.get('apellidos'),
-            email: formData.get('email'),
-            tipo_user: formData.get('tipo_user'),
-            fecha_creacion: new Date().toISOString()
-        };
+  // Validación
+  if (!userData.nombre || !userData.apellidos || !userData.email || !userData.tipo_user) {
+    mensaje.textContent = '❌ Todos los campos son obligatorios';
+    mensaje.className = 'mensaje error';
+    return;
+  }
 
-        try {
-            mensaje.textContent = '⏳ Guardando usuario...';
-            mensaje.className = 'mensaje loading';
+  try {
+    mensaje.textContent = '⏳ Guardando usuario...';
+    mensaje.className = 'mensaje loading';
 
-            const { data, error } = await supabase
-                .from('usuarios')
-                .insert([userData])
-                .select();
-
-            if (error) throw error;
-
-            mensaje.textContent = '✅ Usuario creado correctamente!';
-            mensaje.className = 'mensaje success';
-            form.reset();
-
-            setTimeout(() => {
-                mensaje.textContent = '';
-                mensaje.className = 'mensaje';
-            }, 3000);
-
-            console.log('Usuario creado:', data);
-        } catch (error) {
-            console.error('Error:', error);
-            mensaje.textContent = `❌ Error: ${error.message}`;
-            mensaje.className = 'mensaje error';
-        }
+    const res = await fetch('/api/addUser', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(userData)
     });
+
+    const result = await res.json();
+
+    if (!res.ok) throw new Error(result.error || 'Error desconocido');
+
+    mensaje.textContent = '✅ Usuario creado correctamente!';
+    mensaje.className = 'mensaje success';
+    form.reset();
+
+    setTimeout(() => {
+      mensaje.textContent = '';
+      mensaje.className = 'mensaje';
+    }, 3000);
+
+    console.log('Usuario creado:', result.data);
+  } catch (err) {
+    mensaje.textContent = `❌ Error: ${err.message}`;
+    mensaje.className = 'mensaje error';
+    console.error(err);
+  }
+});
 </script>
 
+
 <style>
-    form, h1{
-        margin-left: 20px;
-        margin-right: 20px;
-    }
+h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #00f0ff;
+  text-shadow: 0 0 8px #00f0ff, 0 0 16px #00bfff;
+  margin-bottom: 25px;
+  font-family: 'Segoe UI', sans-serif;
+}
 
-    h1{
-        margin-top: 20px;
-        display: flex;
-        justify-content: center;
-    }
+.form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1000px;
+}
 
-    .form{
-        margin-top: 20px;
-        padding: 20px;
-        border: 4px solid #ccc;
-        border-radius: 5px;
-        max-width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+.form-container {
+  background: linear-gradient(145deg, #0d1b2a, #1b2a4a);
+  padding: 40px 50px;
+  border-radius: 20px;
+  border: 2px solid #00f0ff;
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.5), 0 10px 30px rgba(0,0,0,0.3);
+  max-width: 500px;
+  width: 100%;
+  list-style: none;
+  transform: translateZ(0);
+}
 
-    .form-container{
-        list-style-type: none;
-        padding: 100px;
-        background-color: #a6d1ff;
-        border: 10px solid #ccc;
-        border-radius: 10px;
-    }
+.form-container li {
+  margin-bottom: 20px;
+}
 
-    .form-label{
-        display: block;
-        margin-bottom: 5px;
-        font-weight: bold;
-    }
+.form-label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #00cfff;
+  letter-spacing: 0.5px;
+}
 
-    .input-field{
-        width: 100%;
-        padding: 8px;
-        margin-bottom: 15px;
-        border: 3px solid #ccc;
-        border-radius: 4px;
-        font-size: 14px;
-    }
+.input-field {
+  width: 100%;
+  padding: 12px;
+  font-size: 15px;
+  border: 2px solid #00f0ff;
+  border-radius: 12px;
+  background-color: #12223f;
+  color: #fff;
+  transition: all 0.3s ease;
+}
 
-    .submit{
-        padding: 10px 15px;
-        background-color: #007BFF;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        margin-top: 10px;
-        width: 100%;
-        font-weight: bold;
-        font-size: 16px;
-        transition: background-color 0.3s;
-    }
+.input-field:focus {
+  border-color: #00bfff;
+  box-shadow: 0 0 10px #00f0ff;
+  outline: none;
+  background-color: #0d1b2a;
+}
 
-    .submit:hover{
-        background-color: #0056b3;
-    }
+.submit {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(90deg, #00f0ff, #007BFF);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.6);
+}
 
-    .submit:disabled{
-        background-color: #cccccc;
-        cursor: not-allowed;
-    }
+.submit:hover {
+  background: linear-gradient(90deg, #007BFF, #00f0ff);
+  box-shadow: 0 0 20px #00f0ff, 0 5px 25px rgba(0,0,0,0.4);
+}
 
-    /* MENSAJES DE FEEDBACK */
-    .mensaje{
-        margin-top: 15px;
-        padding: 12px;
-        border-radius: 6px;
-        text-align: center;
-        font-weight: bold;
-        display: none;
-        animation: slideDown 0.3s ease;
-    }
+.mensaje {
+  margin-top: 15px;
+  padding: 12px;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: bold;
+  display: none;
+  font-family: 'Segoe UI', sans-serif;
+  letter-spacing: 0.5px;
+}
 
-    @keyframes slideDown {
-        from {
-            opacity: 0;
-            transform: translateY(-10px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
+.mensaje.loading {
+  display: block;
+  background-color: #0a192f;
+  color: #00bfff;
+  border: 2px solid #00bfff;
+  box-shadow: 0 0 10px #00bfff;
+}
 
-    .mensaje.loading{
-        display: block;
-        background-color: #fff3cd;
-        color: #856404;
-        border: 2px solid #ffc107;
-    }
+.mensaje.success {
+  display: block;
+  background-color: #0a192f;
+  color: #00ffae;
+  border: 2px solid #00ffae;
+  box-shadow: 0 0 10px #00ffae;
+}
 
-    .mensaje.success{
-        display: block;
-        background-color: #d4edda;
-        color: #155724;
-        border: 2px solid #28a745;
-    }
-
-    .mensaje.error{
-        display: block;
-        background-color: #f8d7da;
-        color: #721c24;
-        border: 2px solid #dc3545;
-    }
+.mensaje.error {
+  display: block;
+  background-color: #0a192f;
+  color: #ff4c4c;
+  border: 2px solid #ff4c4c;
+  box-shadow: 0 0 10px #ff4c4c;
+}
 </style>

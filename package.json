@@ -4,7 +4,9 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "db-init": "node ./src/scripts/formDB-conexion.js",
+    "init": "node src/scripts/supabaseClient.js",
+    "select": "node src/scripts/selectUsuarios.js",
+    "insert": "node src/scripts/insertUsuarios.js",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"

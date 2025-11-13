@@ -1,28 +1,41 @@
 ---
-import FormDB from "../components/formDB.astro"
+import FormDB from '../components/formDB.astro'; // asegúrate de que el nombre coincide
 ---
 
-<FormDB>
-    
-</FormDB>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <title>Dar de Alta Usuarios</title>
+  </head>
+  <body>
+    <main>
+      <FormDB />
+    </main>
 
-<style>
-    /* fade-in al carregar */
-    body {
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    }
+    <style>
+      /* fade-in al cargar */
+      body {
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        font-family: Arial, sans-serif;
+      }
 
-    body.loaded {
-    opacity: 1;
-    }
+      body.loaded {
+        opacity: 1;
+      }
 
-</style>
+      main {
+        display: flex;
+        justify-content: center;
+        margin-top: 50px;
+      }
+    </style>
 
-<script>
-    // JS para añadir la clase "loaded" al cargar
-    window.addEventListener('DOMContentLoaded', () => {
-    document.body.classList.add('loaded');
-    });
-
-</script>
+    <script>
+      // JS para añadir la clase "loaded" al cargar
+      window.addEventListener('DOMContentLoaded', () => {
+        document.body.classList.add('loaded');
+      });
+    </script>
+  </body>
+</html>
