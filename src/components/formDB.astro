@@ -2,8 +2,9 @@
 import '../styles/global.css';
 ---
 
-<h1>Dar de Alta Usuarios</h1>
+
 <form id="user-form" class="form">
+  <h1>Dar de Alta Usuarios</h1>
   <div class="form-container">
     <li>
       <label for="nombre" class="form-label">Nombre</label>
@@ -86,116 +87,250 @@ form.addEventListener('submit', async (e) => {
 
 
 <style>
+/* Título con efecto glow */
 h1 {
   text-align: center;
+  color: #00ffff;
   font-size: 2.5rem;
-  color: #00f0ff;
-  text-shadow: 0 0 8px #00f0ff, 0 0 16px #00bfff;
-  margin-bottom: 25px;
-  font-family: 'Segoe UI', sans-serif;
+  font-weight: 700;
+  margin: 3rem 0 2rem;
+  text-shadow: 0 0 10px #00ccff, 0 0 20px #3399ff, 0 0 30px #0099ff;
+  letter-spacing: 2px;
 }
 
+/* Contenedor del formulario */
 .form {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  perspective: 1000px;
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2.5rem;
+  background: rgba(0, 26, 77, 0.6);
+  backdrop-filter: blur(15px);
+  border-radius: 1rem;
+  box-shadow: 0 0 25px rgba(0, 153, 255, 0.5), 0 0 50px rgba(0, 204, 255, 0.3);
+  border: 1px solid rgba(0, 204, 255, 0.4);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
+.form:hover {
+  box-shadow: 0 0 35px rgba(0, 153, 255, 0.7), 0 0 70px rgba(0, 204, 255, 0.5);
+  transform: translateY(-3px);
+}
+
+/* Contenedor de campos */
 .form-container {
-  background: linear-gradient(145deg, #0d1b2a, #1b2a4a);
-  padding: 40px 50px;
-  border-radius: 20px;
-  border: 2px solid #00f0ff;
-  box-shadow: 0 0 20px rgba(0, 240, 255, 0.5), 0 10px 30px rgba(0,0,0,0.3);
-  max-width: 500px;
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
   list-style: none;
-  transform: translateZ(0);
+  padding: 0;
+  margin: 0;
 }
 
 .form-container li {
-  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
+/* Labels con estilo futurista */
 .form-label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 5px;
-  color: #00cfff;
-  letter-spacing: 0.5px;
+  color: #66ccff;
+  font-size: 1rem;
+  font-weight: 600;
+  text-shadow: 0 0 5px #00ccff;
+  letter-spacing: 1px;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
 }
 
+.form-container li:focus-within .form-label {
+  color: #00ffff;
+  text-shadow: 0 0 10px #00ccff, 0 0 20px #3399ff;
+}
+
+/* Inputs y selects con efecto glow */
 .input-field {
-  width: 100%;
-  padding: 12px;
-  font-size: 15px;
-  border: 2px solid #00f0ff;
-  border-radius: 12px;
-  background-color: #12223f;
-  color: #fff;
+  padding: 0.9rem 1.2rem;
+  font-size: 1rem;
+  color: #e0f7ff;
+  background: rgba(0, 51, 102, 0.5);
+  border: 2px solid rgba(0, 204, 255, 0.3);
+  border-radius: 0.5rem;
+  outline: none;
   transition: all 0.3s ease;
+  box-shadow: inset 0 0 10px rgba(0, 153, 255, 0.2);
+  backdrop-filter: blur(5px);
+}
+
+.input-field::placeholder {
+  color: rgba(102, 204, 255, 0.6);
+  font-style: italic;
 }
 
 .input-field:focus {
-  border-color: #00bfff;
-  box-shadow: 0 0 10px #00f0ff;
-  outline: none;
-  background-color: #0d1b2a;
+  border-color: #00ccff;
+  box-shadow: 0 0 15px rgba(0, 204, 255, 0.6), 0 0 30px rgba(0, 153, 255, 0.4), inset 0 0 15px rgba(0, 153, 255, 0.3);
+  background: rgba(0, 51, 102, 0.7);
+  transform: scale(1.02);
 }
 
-.submit {
-  width: 100%;
-  padding: 14px;
-  background: linear-gradient(90deg, #00f0ff, #007BFF);
-  color: #fff;
-  border: none;
-  border-radius: 12px;
-  font-weight: bold;
-  font-size: 16px;
+.input-field:hover {
+  border-color: rgba(0, 204, 255, 0.6);
+  box-shadow: 0 0 10px rgba(0, 204, 255, 0.4);
+}
+
+/* Select con estilo personalizado */
+select.input-field {
   cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2366ccff' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
+}
+
+select.input-field option {
+  background: #001a4d;
+  color: #66ccff;
+  padding: 0.5rem;
+}
+
+/* Botón submit futurista */
+.submit {
+  margin-top: 1rem;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #001a4d;
+  background: linear-gradient(135deg, #00ccff 0%, #0099ff 50%, #3399ff 100%);
+  border: 2px solid #00ccff;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  box-shadow: 0 0 15px rgba(0, 204, 255, 0.5), 0 0 30px rgba(0, 153, 255, 0.3);
   transition: all 0.3s ease;
-  letter-spacing: 0.5px;
-  box-shadow: 0 0 15px rgba(0, 240, 255, 0.6);
+  position: relative;
+  overflow: hidden;
+}
+
+.submit::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.5s ease, height 0.5s ease;
 }
 
 .submit:hover {
-  background: linear-gradient(90deg, #007BFF, #00f0ff);
-  box-shadow: 0 0 20px #00f0ff, 0 5px 25px rgba(0,0,0,0.4);
+  background: linear-gradient(135deg, #00ffff 0%, #00ccff 50%, #0099ff 100%);
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.7), 0 0 50px rgba(0, 204, 255, 0.5);
+  transform: translateY(-3px) scale(1.05);
+  border-color: #00ffff;
 }
 
+.submit:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.submit:active {
+  transform: translateY(0) scale(1);
+  box-shadow: 0 0 15px rgba(0, 204, 255, 0.5);
+}
+
+/* Mensaje de respuesta */
 .mensaje {
-  margin-top: 15px;
-  padding: 12px;
-  border-radius: 10px;
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
   text-align: center;
-  font-weight: bold;
-  display: none;
-  font-family: 'Segoe UI', sans-serif;
-  letter-spacing: 0.5px;
-}
-
-.mensaje.loading {
-  display: block;
-  background-color: #0a192f;
-  color: #00bfff;
-  border: 2px solid #00bfff;
-  box-shadow: 0 0 10px #00bfff;
+  font-weight: 600;
+  font-size: 1rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .mensaje.success {
-  display: block;
-  background-color: #0a192f;
-  color: #00ffae;
-  border: 2px solid #00ffae;
-  box-shadow: 0 0 10px #00ffae;
+  opacity: 1;
+  background: rgba(0, 255, 136, 0.2);
+  border: 2px solid #00ff88;
+  color: #00ff88;
+  box-shadow: 0 0 15px rgba(0, 255, 136, 0.4);
+  text-shadow: 0 0 5px #00ff88;
 }
 
 .mensaje.error {
-  display: block;
-  background-color: #0a192f;
-  color: #ff4c4c;
-  border: 2px solid #ff4c4c;
-  box-shadow: 0 0 10px #ff4c4c;
+  opacity: 1;
+  background: rgba(255, 51, 102, 0.2);
+  border: 2px solid #ff3366;
+  color: #ff3366;
+  box-shadow: 0 0 15px rgba(255, 51, 102, 0.4);
+  text-shadow: 0 0 5px #ff3366;
+}
+
+/* Animación de entrada */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.form {
+  animation: slideIn 0.5s ease;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
+    margin: 2rem 0 1.5rem;
+  }
+
+  .form {
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+
+  .form-container {
+    gap: 1.2rem;
+  }
+
+  .input-field {
+    padding: 0.8rem 1rem;
+    font-size: 0.95rem;
+  }
+
+  .submit {
+    padding: 0.9rem 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.6rem;
+  }
+
+  .form {
+    padding: 1rem;
+  }
+
+  .input-field {
+    padding: 0.7rem 0.9rem;
+  }
+
+  .submit {
+    padding: 0.8rem 1.2rem;
+  }
 }
 </style>

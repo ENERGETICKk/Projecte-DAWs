@@ -5,22 +5,7 @@ import '../styles/global.css';
 import Sample from '../components/sample.astro';
 import CardLD from '../components/cardLD.astro';
 
-// Card 1
-import coverImage1 from '../assets/cardsAssets/present.png';
-import titleImage1 from '../assets/cardsAssets/present.png';
-import characterImage1 from '../assets/cardsAssets/present.png';
-// Card 2
-import coverImage2 from '../assets/cardsAssets/falta.png';
-import titleImage2 from '../assets/cardsAssets/falta.png';
-import characterImage2 from '../assets/cardsAssets/falta.png';
-// Card 3
-import coverImage3 from '../assets/cardsAssets/retard.png';
-import titleImage3 from '../assets/cardsAssets/retard.png';
-import characterImage3 from '../assets/cardsAssets/retard.png';
-// Card 4
-import coverImage4 from '../assets/cardsAssets/justificada.png';
-import titleImage4 from '../assets/cardsAssets/justificada.png'
-import characterImage4 from '../assets/cardsAssets/justificada.png'
+
 ---
 
 <Layout>
@@ -33,27 +18,28 @@ import characterImage4 from '../assets/cardsAssets/justificada.png'
         <div class="cards">
             <div class="presents">
                 <h2>Present</h2>
-            </div>
-            <div class="retards">
-                <h2>Retards</h2>
+                <p class="vacio"></p>
             </div>
             <div class="faltes">
                 <h2>Faltes</h2>
+                <p class="vacio"></p>
+            </div>
+            <div class="retards">
+                <h2>Retards</h2>
+                <p class="vacio"></p>
             </div>
             <div class="justificades">
                 <h2>Justificades</h2>
+                <p class="vacio"></p>
             </div>
         </div>
-        
     </div>
     <div class="test">
-        <CardLD coverImage={coverImage1.src} titleImage={titleImage1.src} characterImage={characterImage1.src}/>
-        <CardLD coverImage={coverImage2.src} titleImage={titleImage2.src} characterImage={characterImage2.src}/>
-        <CardLD coverImage={coverImage3.src} titleImage={titleImage3.src} characterImage={characterImage3.src}/>
-        <CardLD coverImage={coverImage4.src} titleImage={titleImage4.src} characterImage={characterImage4.src}/>
+        <CardLD />
     </div>
 </Layout>
 </Sample>
+
 
 
 <style>
@@ -113,6 +99,7 @@ import characterImage4 from '../assets/cardsAssets/justificada.png'
     .cards {
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: 2rem;
     flex-wrap: wrap;
     margin-top: 30px;
@@ -120,10 +107,12 @@ import characterImage4 from '../assets/cardsAssets/justificada.png'
 
     /* Cada card individual */
     .cards > div {
+    display: flex;
+    justify-content: center;
     background: rgba(0, 26, 77, 0.4);
     border-radius: 15px;
-    padding: 2rem;
-    width: 160px;
+    padding: 3rem;
+    width: 20rem;
     text-align: center;
     box-shadow: 0 0 15px rgba(0, 153, 255, 0.3);
     border: 1px solid rgba(0, 204, 255, 0.3);

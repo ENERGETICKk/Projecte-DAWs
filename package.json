@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
+    "dev": "npm run init && astro dev",
     "init": "node src/scripts/supabaseClient.js",
     "select": "node src/scripts/selectUsuarios.js",
     "insert": "node src/scripts/insertUsuarios.js",

@@ -1,5 +1,7 @@
 ---
 import FormDB from '../components/formDB.astro'; // asegúrate de que el nombre coincide
+import Header from '../components/Header.astro';
+import Footer from '../components/footer.astro';
 ---
 
 <html lang="es">
@@ -8,34 +10,43 @@ import FormDB from '../components/formDB.astro'; // asegúrate de que el nombre 
     <title>Dar de Alta Usuarios</title>
   </head>
   <body>
+    <Header />
     <main>
       <FormDB />
     </main>
+    <div class="Espacio">
 
-    <style>
-      /* fade-in al cargar */
-      body {
-        opacity: 0;
-        transition: opacity 0.5s ease;
-        font-family: Arial, sans-serif;
-      }
-
-      body.loaded {
-        opacity: 1;
-      }
-
-      main {
-        display: flex;
-        justify-content: center;
-        margin-top: 50px;
-      }
-    </style>
-
-    <script>
-      // JS para añadir la clase "loaded" al cargar
-      window.addEventListener('DOMContentLoaded', () => {
-        document.body.classList.add('loaded');
-      });
-    </script>
+    </div>
+    <Footer />
   </body>
 </html>
+
+
+<style>
+  /* fade-in al cargar */
+  body {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    font-family: Arial, sans-serif;
+  }
+
+  body.loaded {
+    opacity: 1;
+  }
+
+  main {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+  }
+  .Espacio{
+    margin-bottom: 40px;
+  }
+</style>
+
+<script>
+  // JS para añadir la clase "loaded" al cargar
+  window.addEventListener('DOMContentLoaded', () => {
+    document.body.classList.add('loaded');
+  });
+</script>
