@@ -16,15 +16,15 @@ import '../styles/global.css';
             </a>
         </div>
         <div class="links">
-            <a href="/">Home</a>
-            <a href="">🔍</a>
-            <a href="">⚙️</a>
-            <a href="">🏫</a>
+            <a href="/"><img src="/home-header.svg" alt="Home"></a>
+            <a href="/"><img src="/alien-header.svg" alt="Alien"></a>
+            <a href="/"><img src="/checklist-header.svg" alt="Checklist"></a>
+            <a href="/"><img src="/amongus-header.svg" alt="Among Us"></a>
         </div>
     </header>
 </div>
 
-<style>
+<style is:global>
     /* Header futurista / tecnológico */
 .header {
   position: sticky;
@@ -61,23 +61,29 @@ import '../styles/global.css';
 /* Links estilo futurista */
 .links {
   display: flex;
-  gap: 3rem;
+  gap: 3rem; /* Espacio entre los iconos */
+  justify-content: center;
   margin-right: 3rem;
+  transition: all 0.3s ease;
 }
 
-.links a {
-  text-decoration: none;
-  color: #66ccff;
-  font-weight: 600;
-  font-size: 1.8rem;
-  transition: transform 0.25s ease, text-shadow 0.25s ease, color 0.25s ease;
-  text-shadow: 0 0 5px #00ccff, 0 0 15px #3399ff;
+/* Aplicar el estilo de logos a las imágenes dentro de .links */
+.links a img {
+  width: 3rem; /* Tamaño de imagen adaptado */
+  height: auto;
+  filter: 
+    drop-shadow(0 0 5px #00ffff)
+    drop-shadow(0 0 15px #3399ff); /* Filtro de neón inicial */
+  transform: scale(1.08);
+  transition: all 0.3s ease;
 }
 
-.links a:hover {
-  transform: scale(1.3);
-  color: #00ffff;
-  text-shadow: 0 0 15px #00ccff, 0 0 35px #66ffff;
+/* Hover con efecto de neón más intenso y rotación sutil */
+.links a img:hover {
+  filter:
+    drop-shadow(0 0 15px #00ffff)
+    drop-shadow(0 0 35px #3399ff); /* Filtro de neón más intenso al hacer hover */
+  transform: scale(1.15) rotate(2deg); /* Efecto de escala y rotación */
 }
 
 /* Fondo del header fijo y animación ligera */
@@ -105,6 +111,8 @@ import '../styles/global.css';
     margin: 1rem 0 0 0;
   }
 }
+
+
 
 </style>
 

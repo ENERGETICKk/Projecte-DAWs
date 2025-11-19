@@ -1,0 +1,224 @@
+---
+import Header from '../components/Header.astro';
+import Sample from '../components/sample.astro';
+import '../styles/global.css';
+
+---
+<Sample>
+<div class="container">
+    <h1>Lista de Usuarios Registrados</h1>
+    <div id="loading" class="loading">Cargando datos... ⏳</div>
+    <div id="error-message" class="error-message"></div>
+    
+    <div class="table-wrapper">
+        <table id="user-table" class="data-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre Completo</th>
+                    <th>Email</th>
+                    <th>Tipo de Usuario</th>
+                    <th>Fecha de Creación</th>
+                </tr>
+            </thead>
+            <tbody>
+                </tbody>
+        </table>
+    </div>
+
+</div>
+</Sample>
+
+
+<style>
+
+.container {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #00ffff;
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+    text-shadow: 0 0 10px #00ccff;
+}
+
+.loading, .error-message {
+    text-align: center;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.loading {
+    color: #66ccff;
+    background: rgba(0, 51, 102, 0.5);
+    border: 1px solid #00ccff;
+}
+
+.error-message {
+    color: #ff3366;
+    background: rgba(102, 0, 0, 0.5);
+    border: 1px solid #ff3366;
+}
+
+/* Estilo de la tabla */
+.table-wrapper {
+    overflow-x: auto;
+    background: rgba(0, 26, 51, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 153, 255, 0.5);
+    border: 1px solid rgba(0, 204, 255, 0.4);
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #e0f7ff; /* Fuente clara para fondo oscuro */
+    font-family: 'Consolas', 'Courier New', monospace; /* Fuente estilo consola/Excel */
+    min-width: 800px; /* Para asegurar el scroll en móviles */
+}
+
+/* Encabezado (Header) */
+.data-table thead th {
+    background-color: #004d99; /* Azul oscuro fuerte */
+    color: #00ffff;
+    padding: 15px 12px;
+    text-align: left;
+    text-transform: uppercase;
+    font-weight: 700;
+    border-bottom: 3px solid #00ccff;
+    letter-spacing: 1px;
+}
+
+/* Cuerpo de la tabla (Filas) */
+.data-table tbody td {
+    padding: 12px 12px;
+    border-bottom: 1px solid rgba(0, 102, 153, 0.5); /* Separador de fila más sutil */
+    transition: background-color 0.3s ease;
+}
+
+/* Estilo zebra (Filas alternas) */
+.data-table tbody tr:nth-child(even) {
+    background-color: rgba(0, 51, 102, 0.5); /* Azul muy oscuro para contraste */
+}
+
+/* Hover en las filas */
+.data-table tbody tr:hover {
+    background-color: #0066cc; /* Azul brillante al pasar el ratón */
+    color: #ffffff;
+    cursor: default;
+}
+
+/* Estilos específicos para celdas */
+.data-table td:nth-child(1) { /* ID */
+    font-weight: bold;
+    color: #66ccff;
+}
+
+.name-cell {
+    color: #ffffff;
+}
+
+/* Estilos para el Tipo de Usuario (etiquetas de color) */
+.type-estudiante {
+    background-color: rgba(0, 153, 51, 0.6);
+    color: #ccffcc;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.type-profesor {
+    background-color: rgba(255, 102, 0, 0.6);
+    color: #fff0b3;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.type-personal {
+    background-color: rgba(102, 0, 153, 0.6);
+    color: #e6ccff;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.no-data, .error-data {
+    text-align: center;
+    font-style: italic;
+    color: #66ccff;
+}
+</style>
+
+
+
+
+<script>
+    const tableBody = document.querySelector('#user-table tbody')!;
+    const loadingMessage = document.getElementById('loading')!;
+    const errorMessage = document.getElementById('error-message')!;
+    
+    async function fetchAndRenderUsers() {
+        loadingMessage.style.display = 'block';
+        errorMessage.style.display = 'none';
+        tableBody.innerHTML = '';
+
+        try {
+            const response = await fetch('/api/getUsers'); 
+            
+            if (!response.ok) {
+                // Corregido: Si no es OK (404, 500), NO intentamos parsear JSON
+                // En su lugar, lanzamos un error claro con el código de estado.
+                throw new Error(`API Fallida o no encontrada (Código: ${response.status}). Verifique la ruta del fichero API.`);
+            }
+
+            // Si es OK (200), leemos el JSON
+            const result = await response.json();
+            const users = result.data;
+            
+            if (users.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="5" class="no-data">No hay usuarios registrados en la base de datos.</td></tr>';
+            } else {
+                users.forEach(user => {
+                    const row = tableBody.insertRow();
+                    
+                    const dateOptions = { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+                    const formattedDate = new Date(user.fecha_creacion).toLocaleDateString('es-ES', dateOptions);
+
+                    const tipoUsuario = user.tipo_usuario.charAt(0).toUpperCase() + user.tipo_usuario.slice(1);
+
+                    row.innerHTML = `
+                        <td>${user.usuarios_id}</td>
+                        <td class="name-cell">${user.nombre} ${user.apellidos}</td>
+                        <td>${user.email}</td>
+                        <td class="type-${user.tipo_usuario}">${tipoUsuario}</td>
+                        <td>${formattedDate}</td>
+                    `;
+                });
+            }
+
+        } catch (error) {
+            console.error('💥 Error al cargar usuarios:', error);
+            errorMessage.textContent = `Error al cargar los datos: ${error.message}`;
+            errorMessage.style.display = 'block';
+            tableBody.innerHTML = '<tr><td colspan="5" class="error-data">Fallo en la conexión.</td></tr>';
+        } finally {
+            loadingMessage.style.display = 'none';
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', fetchAndRenderUsers);
+</script>

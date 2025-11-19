@@ -1,7 +1,5 @@
 import { supabase } from '../../scripts/supabaseClient';
 
-console.log("Api existe")
-
 export async function POST({ request }) {
   console.log('🔵 API llamada - Inicio');
   

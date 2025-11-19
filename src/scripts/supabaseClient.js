@@ -2,14 +2,11 @@
 
 import { createClient } from '@supabase/supabase-js';
 
-// **IMPORTANTE:** Acceder a las variables sin el prefijo PUBLIC_ si no lo usaste en el .env
 const SUPABASE_URL = import.meta.env.SUPABASE_URL;
 const SUPABASE_ANON_KEY = import.meta.env.SUPABASE_ANON_KEY;
 
-// **Añadir el chequeo que falla para que veas qué pasa**
 if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
     console.error("❌ Faltan variables de entorno para Supabase. URL:", SUPABASE_URL, "KEY:", SUPABASE_ANON_KEY);
-    // Si llegas aquí, las variables son undefined o null, por eso no sale "Conectado".
 } else {
     console.log("🟢 Conectado Supabase 🟢"); 
 }

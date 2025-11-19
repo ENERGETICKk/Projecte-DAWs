@@ -1,16 +1,10 @@
 ---
-import Header from '../components/Header.astro';
-import Layout from '../layouts/Layout.astro';
-import noti from '../assets/noti.svg';
-import estats from '../assets/estadisticas.png';
-import registro from '../assets/registro.png';
 import '../styles/global.css';
-import Footer from '../components/footer.astro';
+import Sample from '../components/sample.astro';
 ---
 
 
-<Layout>
-    <Header />
+<Sample>
     <div class="titulo">
         <h2>Assistencia Estudiantil</h2>
         <h2>🔔🤓</h2>
@@ -19,36 +13,37 @@ import Footer from '../components/footer.astro';
         <div class="card">
 
             <a href="/registro">
-                <img alt="registro" src={registro.src}>
+                <img alt="registro" src='/records.svg'>
+                <h1>Registro</h1>
+            </a>
+
+        </div>
+        <div class="card">
+
+            <a href="/estats">
+                <img alt="estadisticas" src='/search.svg'>
+                <h1>Consulta Usuarios</h1>
             </a>
 
         </div>
         <div class="card">
 
             <a href="">
-                <img alt="estadisticas" src={estats.src}>
-            </a>
-
-        </div>
-        <div class="card">
-
-            <a href="">
-                <img alt="notificaciones" src={noti.src}>
+                <img alt="notificaciones" src='/notifications.svg'>
+                <h1>notificaciones</h1>
             </a>
             
         </div>
         <div class="card">
 
             <a href="/form">
-                <img alt="Acceso Formulario">
+                <img alt="Acceso Formulario" src='/form.svg'>
+                <h1>Formulario</h1>
             </a>
             
         </div>
     </div>
-    <Footer>
-
-    </Footer>
-</Layout>
+</Sample>
 
 <style>
 
@@ -171,6 +166,13 @@ body {
   object-fit: contain;
   margin-bottom: 1rem;
   filter: drop-shadow(0 0 5px #00ccff);
+}
+
+.card h1{
+  text-decoration: none;
+  font-size: 1.5rem;
+  text-decoration: none;
+  color: white;
 }
 
 /* Pie de página */
