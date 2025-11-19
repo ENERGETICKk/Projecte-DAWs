@@ -1,195 +1,274 @@
 ---
-import '../styles/global.css';
+
+import Layout from '../layouts/Layout.astro';
 import Sample from '../components/sample.astro';
+import '../styles/global.css';
+
+const pageTitle = "Assistencia Estudiantil - Menú";
 ---
 
-
-<Sample>
-    <div class="titulo">
-        <h2>Assistencia Estudiantil</h2>
-        <h2>🔔🤓</h2>
-    </div>
-    <div class="bloques">
-        <div class="card">
-
-            <a href="/registro">
-                <img alt="registro" src='/records.svg'>
-                <h1>Registro</h1>
-            </a>
-
-        </div>
-        <div class="card">
-
-            <a href="/estats">
-                <img alt="estadisticas" src='/search.svg'>
-                <h1>Consulta Usuarios</h1>
-            </a>
-
-        </div>
-        <div class="card">
-
-            <a href="">
-                <img alt="notificaciones" src='/notifications.svg'>
-                <h1>notificaciones</h1>
-            </a>
+<Layout title={pageTitle}>
+    <Sample>
+        <div class="menu-container">
+            <div class="titulo">
+                <h2>Assistencia Estudiantil</h2>
+                <h2>🔔🤓</h2>
+            </div>
             
-        </div>
-        <div class="card">
+            <div class="bloques">
+                
+                {}
+                <a href="/registro" class="card card-glow">
+                    <img alt="Registro" src='/records.svg'>
+                    <h1>Registro</h1>
+                </a>
 
-            <a href="/form">
-                <img alt="Acceso Formulario" src='/form.svg'>
-                <h1>Formulario</h1>
-            </a>
-            
+                {}
+                <a href="/estats" class="card card-glow">
+                    <img alt="Estadísticas" src='/search.svg'>
+                    <h1>Consulta Usuarios</h1>
+                </a>
+
+                {}
+                <a href="/notifications" class="card card-glow disabled">
+                    <img alt="Notificaciones" src='/notifications.svg'>
+                    <h1>Notificaciones</h1>
+                </a>
+
+                {}
+                <a href="/form" class="card card-glow">
+                    <img alt="Acceso Formulario" src='/form.svg'>
+                    <h1>Formulario</h1>
+                </a>
+
+            </div>
         </div>
-    </div>
-</Sample>
+    </Sample>
+</Layout>
 
 <style>
+    
+    :root {
+        --dark-bg: #0b0f2b;
+        --neon-blue: #00ccff;
+        --light-cyan: #66ffff;
+        --deep-blue-glow: #3399ff;
+        --card-base: rgba(0, 51, 102, 0.7);
+        --card-hover: rgba(0, 77, 153, 0.8);
+    }
+    
+    
+    body {
+        background: var(--dark-bg);
+        font-family: 'Rajdhani', sans-serif;
+        color: #cce7ff;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .menu-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 1rem;
+    }
+
+    
+
+    .titulo {
+        position: relative;
+        text-align: center;
+        padding: 3rem 1rem;
+        margin: 3rem auto 5rem auto; 
+        max-width: 900px;
+        border-radius: 1.5rem;
+        background: linear-gradient(135deg, #001c4d, #0033aa 60%, #0066ff);
+        box-shadow: 0 0 30px rgba(0, 102, 255, 0.7), 0 0 50px rgba(0, 204, 255, 0.4);
+        overflow: hidden;
+        border: 1px solid rgba(0, 204, 255, 0.5);
+        z-index: 10;
+    }
+    
+    
+    .titulo::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: conic-gradient(
+            from 0deg,
+            rgba(0, 102, 255, 0.1),
+            rgba(0, 204, 255, 0.2),
+            rgba(0, 102, 255, 0.1)
+        );
+        animation: rotateGlow 8s linear infinite;
+        z-index: 0;
+    }
+
+    @keyframes rotateGlow {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    .titulo h2 {
+        position: relative;
+        z-index: 1;
+        text-transform: uppercase;
+        color: var(--neon-blue);
+        letter-spacing: 3px;
+        margin: 0.5rem 0;
+        font-weight: 700;
+        font-size: 2.2rem; 
+        text-shadow: 0 0 5px var(--neon-blue), 0 0 15px var(--deep-blue-glow);
+        transition: color 0.3s ease, text-shadow 0.3s ease;
+    }
+
+    .titulo h2:first-child {
+        color: #33aaff;
+        text-shadow: 0 0 10px #33aaff, 0 0 25px #00e5ff;
+    }
+
+    .titulo h2:last-child {
+        color: var(--light-cyan);
+        text-shadow: 0 0 10px var(--light-cyan), 0 0 25px var(--neon-blue);
+        font-size: 1.8rem;
+    }
+
+    .titulo h2:hover {
+        color: var(--light-cyan);
+        text-shadow: 0 0 20px var(--neon-blue), 0 0 40px var(--light-cyan);
+    }
+
+    
+
+    
+    .bloques {
+        display: flex;
+        justify-content: center; 
+        flex-wrap: wrap;
+        gap: 3rem; 
+        padding: 3rem 1rem; 
+        margin-bottom: 5rem;
+        border-radius: 20px;
+        background: rgba(0, 26, 77, 0.6);
+        box-shadow: 0 0 40px rgba(0, 102, 255, 0.3);
+        border: 1px solid rgba(0, 204, 255, 0.2);
+    }
+
+    
+    .card {
+        width: 250px;
+        height: 250px; 
+        background: var(--card-base);
+        border-radius: 15px;
+        box-shadow: 0 6px 20px rgba(0, 153, 255, 0.4);
+        border: 2px solid rgba(0, 204, 255, 0.3); 
+        
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        
+        text-align: center;
+        text-decoration: none; 
+        color: white;
+        
+        transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    
+    .card:hover {
+        transform: translateY(-10px) scale(1.05);
+        box-shadow: 0 16px 45px rgba(0, 204, 255, 0.7), 0 0 30px var(--neon-blue);
+        background: var(--card-hover);
+        z-index: 10;
+    }
+    
+    
+    .card::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        border-radius: 15px;
+        opacity: 0;
+        border: 3px solid var(--light-cyan);
+        transform: scale(0.8);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .card:hover::before {
+        opacity: 0.1; 
+        transform: scale(1.0);
+    }
 
 
-    /* Fondo general de la página */
-body {
-  background: #0b0f2b; /* azul oscuro profundo */
-  font-family: 'Rajdhani', sans-serif;
-  color: #cce7ff;
-  margin: 0;
-  padding: 0;
-}
+    
+    .card.disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+    .card.disabled:hover {
+        transform: none;
+        box-shadow: 0 6px 20px rgba(0, 153, 255, 0.4); 
+        background: var(--card-base);
+    }
 
-/* Titulo con efecto tecnológico */
-.titulo {
-  position: relative;
-  text-align: center;
-  padding: 3rem 1rem;
-  margin: 3rem auto;
-  max-width: 900px;
-  border-radius: 1.5rem;
-  background: linear-gradient(135deg, #001c4d, #0033aa 60%, #0066ff);
-  box-shadow: 0 0 30px rgba(0, 102, 255, 0.7), 0 0 50px rgba(0, 204, 255, 0.4);
-  overflow: hidden;
-  border: 1px solid rgba(0, 204, 255, 0.5);
-}
+    
+    .card img {
+        width: 90px; 
+        height: 90px;
+        object-fit: contain;
+        margin-bottom: 1.2rem;
+        filter: drop-shadow(0 0 8px var(--neon-blue)); 
+        transition: filter 0.3s ease;
+    }
+    .card:hover img {
+        filter: drop-shadow(0 0 12px var(--light-cyan)) drop-shadow(0 0 20px var(--neon-blue));
+    }
 
-/* Glow animado */
-.titulo::before {
-  content: "";
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: conic-gradient(
-    from 0deg,
-    rgba(0, 102, 255, 0.1),
-    rgba(0, 204, 255, 0.2),
-    rgba(0, 102, 255, 0.1)
-  );
-  animation: rotateGlow 8s linear infinite;
-  z-index: 0;
-}
+    .card h1{
+        font-size: 1.6rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: white;
+        text-shadow: 0 0 5px var(--neon-blue);
+    }
 
-@keyframes rotateGlow {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-.titulo h2 {
-  position: relative;
-  z-index: 1;
-  text-transform: uppercase;
-  color: #66ccff;
-  letter-spacing: 3px;
-  margin: 0.5rem 0;
-  font-weight: 700;
-  font-size: 2rem;
-  text-shadow: 0 0 5px #00ccff, 0 0 15px #3399ff;
-  transition: color 0.3s ease, text-shadow 0.3s ease;
-}
-
-.titulo h2:first-child {
-  color: #33aaff;
-  text-shadow: 0 0 10px #33aaff, 0 0 25px #00e5ff;
-}
-
-.titulo h2:last-child {
-  color: #66ffff;
-  text-shadow: 0 0 10px #66ffff, 0 0 25px #00ccff;
-}
-
-.titulo h2:hover {
-  color: #00ffff;
-  text-shadow: 0 0 20px #00ccff, 0 0 40px #66ffff;
-}
-
-/* Bloques / contenedor de tarjetas */
-.bloques {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  padding: 5rem 2rem;
-  margin-top: 150px;
-  border-radius: 20px;
-  background: rgba(0, 26, 77, 0.6);
-  box-shadow: 0 0 30px rgba(0, 102, 255, 0.3);
-}
-
-/* Targetas individuales */
-.card {
-  width: 260px;
-  height: 220px;
-  background: rgba(0, 51, 102, 0.7);
-  border-radius: 15px;
-  box-shadow: 0 6px 20px rgba(0, 153, 255, 0.4);
-  border: 1px solid rgba(0, 204, 255, 0.5);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-  margin: 1rem;
-  text-align: center;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
-}
-
-/* Hover con efecto “tech” */
-.card:hover {
-  transform: translateY(-8px) scale(1.05);
-  box-shadow: 0 14px 40px rgba(0, 204, 255, 0.6), 0 0 25px rgba(0, 153, 255, 0.5);
-  background: rgba(0, 77, 153, 0.8);
-}
-
-/* Imagen dentro de la card */
-.card img {
-  width: 84px;
-  height: 84px;
-  object-fit: contain;
-  margin-bottom: 1rem;
-  filter: drop-shadow(0 0 5px #00ccff);
-}
-
-.card h1{
-  text-decoration: none;
-  font-size: 1.5rem;
-  text-decoration: none;
-  color: white;
-}
-
-/* Pie de página */
-footer {
-  text-align: center;
-  color: #99ccff;
-  padding: 3rem 1rem;
-  font-size: 0.9rem;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .bloques {
-    flex-direction: column;
-    align-items: center;
-    padding: 3rem 1rem;
-  }
-}
-
+    
+    @media (max-width: 992px) {
+        .bloques {
+            gap: 2rem;
+        }
+    }
+    @media (max-width: 576px) {
+        .bloques {
+            flex-direction: column;
+            align-items: center;
+            padding: 3rem 1rem;
+            gap: 1.5rem;
+        }
+        .card {
+            width: 100%; 
+            height: 150px;
+            flex-direction: row; 
+            justify-content: flex-start;
+            padding: 1rem 2rem;
+        }
+        .card img {
+            width: 60px;
+            height: 60px;
+            margin-right: 1.5rem;
+            margin-bottom: 0;
+        }
+        .card h1 {
+            font-size: 1.4rem;
+            text-align: left;
+        }
+    }
 </style>

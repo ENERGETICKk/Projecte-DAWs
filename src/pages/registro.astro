@@ -40,7 +40,7 @@ import Sample from '../components/sample.astro';
 
 <style>
 
-    /* fade-in al carregar */
+    
     body {
     opacity: 0;
     transition: opacity 0.5s ease;
@@ -65,7 +65,7 @@ import Sample from '../components/sample.astro';
     max-width: 900px;
     }
 
-    /* Nombre del alumno */
+    
     .container-registro h1 {
     color: #00ccff;
     font-family: "Rajdhani", sans-serif;
@@ -76,7 +76,7 @@ import Sample from '../components/sample.astro';
     font-weight: 700;
     }
 
-    /* Imagen de perfil con glow */
+    
     .foto-perfil {
     width: 180px;
     height: 180px;
@@ -91,7 +91,7 @@ import Sample from '../components/sample.astro';
     box-shadow: 0 0 30px #00ffff, 0 0 60px #3399ff;
     }
 
-    /* Contenedor de las cards */
+    
     .cards {
     display: flex;
     justify-content: center;
@@ -101,7 +101,7 @@ import Sample from '../components/sample.astro';
     margin-top: 30px;
     }
 
-    /* Cada card individual */
+    
     .cards > div {
     display: flex;
     justify-content: center;
@@ -122,7 +122,7 @@ import Sample from '../components/sample.astro';
     box-shadow: 0 0 25px rgba(0, 204, 255, 0.6), 0 0 50px rgba(0, 255, 255, 0.3);
     }
 
-    /* Texto dentro de las cards */
+    
     .cards h2 {
     margin: 0;
     font-size: 1.3rem;
@@ -133,7 +133,7 @@ import Sample from '../components/sample.astro';
     text-shadow: 0 0 10px #00ffff, 0 0 25px #0066ff;
     }
 
-    /* Cards de tipo CardLD (contenedor inferior) */
+    
     .test {
     display: flex;
     justify-content: center;
@@ -148,7 +148,7 @@ import Sample from '../components/sample.astro';
     border: 1px solid rgba(0, 204, 255, 0.3);
     }
 
-    /* Responsive */
+    
     @media (max-width: 768px) {
     .container-registro {
         width: 90%;
@@ -172,7 +172,7 @@ import Sample from '../components/sample.astro';
 </style>
 
 <script>
-    // JS para añadir la clase "loaded" al cargar
+    
     window.addEventListener('DOMContentLoaded', () => {
     document.body.classList.add('loaded');
     });

@@ -2,9 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import '../styles/global.css';
 
-// Aunque astroLogo no se usa directamente en el HTML de esta página,
-// si tu intención era usarlo, estaría disponible. 
-// Lo mantenemos por consistencia con tu código anterior.
+
 import astroLogo from '../assets/astro.svg';
 import background from '../assets/fondo.svg';
 
@@ -12,115 +10,234 @@ const pageTitle = "JKA Systems - Welcome";
 ---
 
 <Layout title={pageTitle}>
-    <div class="container">
-        <img src={background.src} alt="Background" class="background" />
-        <div>
-            <h1 class="titulo">JKA Systems</h1>
-            <button class="acceder">Get Started</button>
+    <div class="welcome-interface">
+        {}
+        <img src={background.src} alt="Background" class="background-effect" />
+
+        {}
+        <div class="main-panel">
+            <div class="scanner-frame"></div> {}
+            
+            <h1 class="main-title">JKA Systems</h1>
+            <p class="data-tagline">Conectando la educación del futuro.</p>
+
+            <button class="access-button">
+                <span class="button-text">Iniciar Sesión</span>
+                <span class="pulse-ring"></span>
+            </button>
         </div>
+
     </div>
 </Layout>
 
 <style>
-    /* Contenedor principal */
-    .container {
-    margin-top: 15%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-    text-align: center;
+    
+    :root {
+        --dark-bg: #0b0f2b;
+        --neon-blue: #00ccff;
+        --light-cyan: #66ffff;
+        --deep-blue-glow: #3399ff;
+        --panel-bg: rgba(0, 26, 77, 0.7);
+        --text-light: #e0f7ff;
+    }
+    
+    
+    .welcome-interface {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        padding: 2rem;
+        box-sizing: border-box;
     }
 
-    /* Fondo fijo con leve blur y brillo */
-    .background {
-    position: fixed;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -1;
-    pointer-events: none;
-    filter: brightness(0.7) contrast(1.2);
-    animation: subtleGlow 10s infinite alternate;
+    
+    .background-effect {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: -1;
+        opacity: 0.8;
+        
+        filter: brightness(0.6) contrast(1.3); 
+        animation: backgroundShift 15s infinite alternate ease-in-out;
     }
 
-    /* Animación sutil del fondo */
-    @keyframes subtleGlow {
-    0% { filter: brightness(0.7) contrast(1.1); }
-    50% { filter: brightness(0.8) contrast(1.2); }
-    100% { filter: brightness(0.75) contrast(1.15); }
+    @keyframes backgroundShift {
+        
+        0% { filter: brightness(0.6) contrast(1.3); }
+        100% { filter: brightness(0.65) contrast(1.4); }
     }
 
-    /* Título principal */
-    .titulo {
-    color: #00ccff;
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 5rem;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    text-shadow: 
-        0 0 10px #00ffff,
-        0 0 20px #3399ff,
-        0 0 30px #00ccff;
-    transition: color 0.3s ease, text-shadow 0.3s ease;
+    
+    .main-panel {
+        position: relative;
+        width: 90%;
+        max-width: 650px;
+        padding: 5rem 3rem;
+        background: var(--panel-bg);
+        border: 2px solid var(--neon-blue);
+        border-radius: 5px;
+        text-align: center;
+        
+        clip-path: polygon(0 0, 100% 0, 100% 85%, 85% 100%, 0 100%); 
+        
+        box-shadow: 0 0 30px rgba(0, 204, 255, 0.5), 0 0 60px rgba(51, 153, 255, 0.3);
+        
+        
+        transform: scale(0.8) translateY(50px);
+        opacity: 0;
+        animation: panelEnter 1s forwards cubic-bezier(0.2, 0.8, 0.2, 1);
     }
 
-    .titulo:hover {
-    color: #66ffff;
-    text-shadow: 
-        0 0 20px #00ffff,
-        0 0 40px #3399ff,
-        0 0 60px #00ccff;
+    @keyframes panelEnter {
+        to { transform: scale(1) translateY(0); opacity: 1; }
     }
 
-    /* Botón "Get Started" futurista */
-    .acceder {
-    padding: 15px 40px;
-    border-radius: 12px;
-    background: linear-gradient(135deg, #00ccff, #3399ff);
-    border: none;
-    color: white;
-    font-weight: 700;
-    font-size: 1.3rem;
-    cursor: pointer;
-    box-shadow: 0 0 15px #00ccff, 0 0 30px #3399ff;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
+    
+    .scanner-frame {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        
+        
+        background: 
+            linear-gradient(90deg, transparent, var(--neon-blue), transparent) 0 0 / 100% 1px,
+            linear-gradient(90deg, transparent, var(--neon-blue), transparent) 0 100% / 100% 1px;
+        background-repeat: no-repeat;
+        animation: scanAnim 3s linear infinite alternate;
     }
 
-    .acceder:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 25px #00ffff, 0 0 50px #66ccff;
-    background: linear-gradient(135deg, #00ffff, #66ccff);
+    @keyframes scanAnim {
+        0% { opacity: 0.5; }
+        100% { opacity: 1; }
+    }
+    
+    
+    .main-title {
+        color: var(--light-cyan);
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 5.5rem;
+        letter-spacing: 10px; 
+        text-transform: uppercase;
+        margin-bottom: 1rem;
+        transition: all 0.5s ease;
+        
+        text-shadow: 
+            0 0 15px var(--neon-blue),
+            0 0 30px var(--deep-blue-glow);
+        
+        animation: titleGlow 4s infinite alternate;
     }
 
-    /* Contenedor interno para centrar contenido */
-    .container > div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2rem;
+    @keyframes titleGlow {
+        0% { text-shadow: 0 0 15px var(--neon-blue), 0 0 30px var(--deep-blue-glow); }
+        100% { text-shadow: 0 0 20px var(--light-cyan), 0 0 40px var(--neon-blue); }
     }
 
-    /* Responsive */
+    
+    .data-tagline {
+        color: var(--neon-blue);
+        font-size: 1.5rem;
+        font-style: italic;
+        margin-bottom: 3rem;
+        text-shadow: 0 0 5px var(--neon-blue);
+        animation: taglineFade 2s forwards ease-out 1.8s;
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    @keyframes taglineFade {
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    
+    .access-button {
+        position: relative;
+        padding: 18px 60px;
+        border-radius: 8px;
+        background: var(--neon-blue);
+        border: none;
+        color: var(--dark-bg); 
+        font-weight: 700;
+        font-size: 1.5rem;
+        cursor: pointer;
+        overflow: visible; 
+        box-shadow: 0 0 20px var(--neon-blue), 0 0 40px var(--deep-blue-glow);
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+        text-transform: uppercase;
+        z-index: 10;
+        animation: buttonFadeIn 1s forwards ease-out 1s;
+        opacity: 0;
+    }
+    
+    @keyframes buttonFadeIn {
+        to { opacity: 1; }
+    }
+
+    .access-button:hover {
+        transform: scale(1.05);
+        background: var(--light-cyan);
+        box-shadow: 0 0 30px var(--light-cyan), 0 0 60px var(--neon-blue);
+    }
+
+    
+    .pulse-ring {
+        content: '';
+        position: absolute;
+        top: -5px;
+        left: -5px;
+        right: -5px;
+        bottom: -5px;
+        border: 2px solid var(--neon-blue);
+        border-radius: 12px;
+        opacity: 0;
+        transition: opacity 0.5s ease-out;
+        z-index: 5;
+        pointer-events: none;
+    }
+
+    .access-button:hover .pulse-ring {
+        opacity: 1;
+        animation: pulseRing 1.5s infinite;
+    }
+
+    @keyframes pulseRing {
+        0% { transform: scale(1); opacity: 0.8; }
+        100% { transform: scale(1.5); opacity: 0; }
+    }
+
+
+    
     @media (max-width: 768px) {
-    .titulo {
-        font-size: 3.5rem;
+        .main-panel {
+            padding: 3rem 1.5rem;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 90% 100%, 0 100%); 
+        }
+        .main-title {
+            font-size: 3.5rem;
+            letter-spacing: 5px;
+        }
+        .data-tagline {
+            font-size: 1.2rem;
+        }
+        .access-button {
+            padding: 15px 40px;
+            font-size: 1.3rem;
+        }
     }
-    .acceder {
-        padding: 12px 30px;
-        font-size: 1.1rem;
-    }
-    }
-
 </style>
 
 <script>
-    // Maneja la navegación al hacer clic en el botón.
-    document.querySelector('.acceder')?.addEventListener('click', () => {
-        // Redirige al usuario a la ruta /user
+    
+    document.querySelector('.access-button')?.addEventListener('click', () => {
+        
         window.location.href = '/user';
     });
 </script>

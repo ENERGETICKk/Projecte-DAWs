@@ -1,115 +1,293 @@
 ---
-import astroLogo from '../assets/astro.svg';
-import background from '../assets/fondo.svg';
-import '../styles/global.css';
-
+import background from '../assets/fondo.svg'; 
+import '../styles/global.css'; 
 ---
 
+<div class="welcome-matrix">
 
-<div class="container">
-	<img src={background.src} alt="Background" class="background" />
-	<div>
-		<h1 class="titulo">JKA Systems</h1>
-		<button class="acceder">Get Started</button>
-	</div>
+    <div class="matrix-content">
+        <h1 class="matrix-title">
+            <span class="glitch-text" data-text="JKA Systems">JKA Systems</span>
+        </h1>
+        <p class="matrix-subtitle">
+            Sistema de Asistencia Estudiantil <span class="blinking-cursor">_</span>
+        </p>
+        <button class="access-button">
+            <span class="button-text">Inicializar Acceso</span>
+            <span class="button-glow"></span>
+        </button>
+    </div>
 </div>
 
 <style>
-	
-	.container {
-	margin-top: 15%;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	gap: 2rem;
-	text-align: center;
-	}
+    
+    :root {
+        --dark-bg: #0b0f2b; 
+        --neon-blue: #00ccff;
+        --light-cyan: #66ffff;
+        --deep-blue-glow: #3399ff;
+        --text-light: #e0f7ff;
+        --code-line: rgba(0, 153, 255, 0.1);
+    }
 
-	.background {
-	position: fixed;
-	inset: 0;
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-	z-index: -1;
-	pointer-events: none;
-	filter: brightness(0.7) contrast(1.2);
-	animation: subtleGlow 10s infinite alternate;
-	}
+    
+    .welcome-matrix {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 80vh; 
+        padding: 2rem;
+        z-index: 1; 
+    }
 
-	@keyframes subtleGlow {
-	0% { filter: brightness(0.7) contrast(1.1); }
-	50% { filter: brightness(0.8) contrast(1.2); }
-	100% { filter: brightness(0.75) contrast(1.15); }
-	}
+    
+    .welcome-matrix::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: 
+            repeating-linear-gradient(
+                to bottom,
+                transparent,
+                transparent 1px,
+                var(--code-line) 1px,
+                var(--code-line) 2px
+            ),
+            repeating-linear-gradient(
+                to right,
+                transparent,
+                transparent 1px,
+                var(--code-line) 1px,
+                var(--code-line) 2px
+            );
+        background-size: 10px 10px; 
+        opacity: 0.2;
+        animation: matrixScroll 20s linear infinite;
+        z-index: -1;
+    }
 
-	.titulo {
-	color: #00ccff;
-	font-family: 'Rajdhani', sans-serif;
-	font-size: 5rem;
-	letter-spacing: 4px;
-	text-transform: uppercase;
-	text-shadow: 
-		0 0 10px #00ffff,
-		0 0 20px #3399ff,
-		0 0 30px #00ccff;
-	transition: color 0.3s ease, text-shadow 0.3s ease;
-	}
+    @keyframes matrixScroll {
+        from { background-position: 0 0; }
+        to { background-position: 100px 100px; } 
+    }
 
-	.titulo:hover {
-	color: #66ffff;
-	text-shadow: 
-		0 0 20px #00ffff,
-		0 0 40px #3399ff,
-		0 0 60px #00ccff;
-	}
+    
+    .matrix-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 2.5rem;
+        padding: 3rem;
+        background: rgba(0, 10, 30, 0.7); 
+        border-radius: 15px;
+        border: 1px solid rgba(0, 204, 255, 0.3);
+        box-shadow: 0 0 25px rgba(0, 153, 255, 0.6), inset 0 0 10px rgba(0, 204, 255, 0.2);
+        max-width: 800px;
+        transform: perspective(1000px) rotateX(5deg) scale(0.98); 
+        transition: transform 0.5s ease;
+    }
 
-	/* Botón "Get Started" futurista */
-	.acceder {
-	padding: 15px 40px;
-	border-radius: 12px;
-	background: linear-gradient(135deg, #00ccff, #3399ff);
-	border: none;
-	color: white;
-	font-weight: 700;
-	font-size: 1.3rem;
-	cursor: pointer;
-	box-shadow: 0 0 15px #00ccff, 0 0 30px #3399ff;
-	transition: all 0.3s ease;
-	text-transform: uppercase;
-	}
+    .matrix-content:hover {
+        transform: perspective(1000px) rotateX(0deg) scale(1);
+    }
 
-	.acceder:hover {
-	transform: scale(1.1);
-	box-shadow: 0 0 25px #00ffff, 0 0 50px #66ccff;
-	background: linear-gradient(135deg, #00ffff, #66ccff);
-	}
+    
+    .matrix-title {
+        font-family: 'Share Tech Mono', monospace; 
+        font-size: 5.5rem;
+        letter-spacing: 8px; 
+        text-transform: uppercase;
+        color: var(--neon-blue);
+        position: relative;
+        text-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--deep-blue-glow);
+        animation: titleGlow 3s infinite alternate ease-in-out;
+    }
 
-	/* Contenedor interno para centrar contenido */
-	.container > div {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 2rem;
-	}
+    @keyframes titleGlow {
+        0% { text-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--deep-blue-glow); }
+        100% { text-shadow: 0 0 15px var(--light-cyan), 0 0 30px var(--neon-blue); }
+    }
 
-	/* Responsive */
-	@media (max-width: 768px) {
-	.titulo {
-		font-size: 3.5rem;
-	}
-	.acceder {
-		padding: 12px 30px;
-		font-size: 1.1rem;
-	}
-	}
+    
+    .glitch-text {
+        position: relative;
+    }
+    .glitch-text::before, .glitch-text::after {
+        content: attr(data-text);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--dark-bg);
+        overflow: hidden;
+        clip: rect(0, 900px, 0, 0); 
+    }
+    .glitch-text::before {
+        left: 2px;
+        text-shadow: -2px 0 var(--light-cyan);
+        animation: glitch-anim-1 2s infinite linear alternate-reverse;
+    }
+    .glitch-text::after {
+        left: -2px;
+        text-shadow: -2px 0 var(--deep-blue-glow);
+        animation: glitch-anim-2 2s infinite linear alternate-reverse;
+    }
+
+    @keyframes glitch-anim-1 {
+        0% { clip: rect(42px, 9999px, 44px, 0); }
+        10% { clip: rect(12px, 9999px, 66px, 0); }
+        20% { clip: rect(84px, 9999px, 20px, 0); }
+        30% { clip: rect(32px, 9999px, 88px, 0); }
+        40% { clip: rect(100px, 9999px, 50px, 0); }
+        50% { clip: rect(60px, 9999px, 70px, 0); }
+        60% { clip: rect(20px, 9999px, 90px, 0); }
+        70% { clip: rect(90px, 9999px, 30px, 0); }
+        80% { clip: rect(50px, 9999px, 100px, 0); }
+        90% { clip: rect(70px, 9999px, 10px, 0); }
+        100% { clip: rect(0, 9999px, 0, 0); }
+    }
+
+    @keyframes glitch-anim-2 {
+        0% { clip: rect(10px, 9999px, 80px, 0); }
+        15% { clip: rect(70px, 9999px, 20px, 0); }
+        30% { clip: rect(30px, 9999px, 90px, 0); }
+        45% { clip: rect(90px, 9999px, 40px, 0); }
+        60% { clip: rect(50px, 9999px, 10px, 0); }
+        75% { clip: rect(20px, 9999px, 70px, 0); }
+        90% { clip: rect(80px, 9999px, 30px, 0); }
+        100% { clip: rect(0, 9999px, 0, 0); }
+    }
+
+    
+    .matrix-subtitle {
+        font-family: 'Consolas', monospace;
+        font-size: 1.5rem;
+        color: var(--text-light);
+        opacity: 0.8;
+        display: flex;
+        align-items: baseline;
+        gap: 5px;
+    }
+
+    .blinking-cursor {
+        font-size: 1.8rem;
+        color: var(--light-cyan);
+        animation: blink-caret 0.75s step-end infinite;
+    }
+
+    @keyframes blink-caret {
+        from, to { opacity: 0; }
+        50% { opacity: 1; }
+    }
+
+    
+    .access-button {
+        position: relative;
+        padding: 18px 50px;
+        border-radius: 50px; 
+        background: linear-gradient(135deg, var(--neon-blue), var(--deep-blue-glow));
+        border: none;
+        color: white;
+        font-weight: 700;
+        font-size: 1.5rem;
+        cursor: pointer;
+        overflow: hidden;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        box-shadow: 0 0 20px var(--neon-blue);
+        transition: all 0.4s ease-in-out;
+    }
+
+    .access-button:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 0 30px var(--light-cyan), 0 0 60px var(--deep-blue-glow);
+        background: linear-gradient(135deg, var(--light-cyan), var(--neon-blue));
+    }
+
+    
+    .button-glow {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+        animation: button-scan 3s linear infinite;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .access-button:hover .button-glow {
+        opacity: 1;
+    }
+
+    @keyframes button-scan {
+        0% { transform: rotate(0deg); opacity: 0; }
+        50% { opacity: 1; }
+        100% { transform: rotate(360deg); opacity: 0; }
+    }
+
+    .button-text {
+        position: relative;
+        z-index: 1;
+    }
+
+    
+    @media (max-width: 992px) {
+        .matrix-title {
+            font-size: 4rem;
+            letter-spacing: 5px;
+        }
+        .matrix-subtitle {
+            font-size: 1.3rem;
+        }
+        .access-button {
+            padding: 15px 40px;
+            font-size: 1.3rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .welcome-matrix {
+            min-height: 90vh;
+        }
+        .matrix-content {
+            padding: 2rem;
+            gap: 2rem;
+        }
+        .matrix-title {
+            font-size: 3rem;
+            letter-spacing: 4px;
+        }
+        .matrix-subtitle {
+            font-size: 1.1rem;
+        }
+        .access-button {
+            padding: 12px 30px;
+            font-size: 1.1rem;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .matrix-title {
+            font-size: 2.2rem;
+            letter-spacing: 3px;
+        }
+        .matrix-subtitle {
+            font-size: 0.9rem;
+        }
+    }
 
 </style>
 
 <script>
-    // optional chaining — no error if null
-    document.querySelector('.acceder')?.addEventListener('click', () => {
-        window.location.href = '/user';
+    
+    document.querySelector('.access-button')?.addEventListener('click', () => {
+        window.location.href = '/user'; 
     });
 </script>

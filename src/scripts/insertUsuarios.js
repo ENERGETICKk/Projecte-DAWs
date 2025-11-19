@@ -1,4 +1,4 @@
-// añadirUsuario.js
+
 import { time } from 'console';
 import { supabase } from './supabaseClient.js';
 import readline from 'readline';
@@ -39,7 +39,7 @@ async function añadirUsuario() {
     
     const tipo_usuario = tipos[tipoOpcion] || 'estudiant';
 
-    // Confirmar datos
+    
     console.log('\n📋 Datos a insertar:');
     console.log('═══════════════════════════════════════');
     console.log(`Nombre: ${nombre}`);
@@ -59,7 +59,7 @@ async function añadirUsuario() {
 const fechacreacion = new Date().toISOString();
 console.log(fechacreacion);
 
-// Insertar en Supabase
+
 const { data, error } = await supabase
   .from('usuarios')
   .insert([
@@ -87,5 +87,5 @@ const { data, error } = await supabase
   }
 }
 
-// Ejecutar
+
 añadirUsuario();

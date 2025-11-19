@@ -67,7 +67,7 @@ h1 {
     border: 1px solid #ff3366;
 }
 
-/* Estilo de la tabla */
+
 .table-wrapper {
     overflow-x: auto;
     background: rgba(0, 26, 51, 0.8);
@@ -79,14 +79,14 @@ h1 {
 .data-table {
     width: 100%;
     border-collapse: collapse;
-    color: #e0f7ff; /* Fuente clara para fondo oscuro */
-    font-family: 'Consolas', 'Courier New', monospace; /* Fuente estilo consola/Excel */
-    min-width: 800px; /* Para asegurar el scroll en móviles */
+    color: #e0f7ff; 
+    font-family: 'Consolas', 'Courier New', monospace; 
+    min-width: 800px; 
 }
 
-/* Encabezado (Header) */
+
 .data-table thead th {
-    background-color: #004d99; /* Azul oscuro fuerte */
+    background-color: #004d99; 
     color: #00ffff;
     padding: 15px 12px;
     text-align: left;
@@ -96,27 +96,27 @@ h1 {
     letter-spacing: 1px;
 }
 
-/* Cuerpo de la tabla (Filas) */
+
 .data-table tbody td {
     padding: 12px 12px;
-    border-bottom: 1px solid rgba(0, 102, 153, 0.5); /* Separador de fila más sutil */
+    border-bottom: 1px solid rgba(0, 102, 153, 0.5); 
     transition: background-color 0.3s ease;
 }
 
-/* Estilo zebra (Filas alternas) */
+
 .data-table tbody tr:nth-child(even) {
-    background-color: rgba(0, 51, 102, 0.5); /* Azul muy oscuro para contraste */
+    background-color: rgba(0, 51, 102, 0.5); 
 }
 
-/* Hover en las filas */
+
 .data-table tbody tr:hover {
-    background-color: #0066cc; /* Azul brillante al pasar el ratón */
+    background-color: #0066cc; 
     color: #ffffff;
     cursor: default;
 }
 
-/* Estilos específicos para celdas */
-.data-table td:nth-child(1) { /* ID */
+
+.data-table td:nth-child(1) { 
     font-weight: bold;
     color: #66ccff;
 }
@@ -125,7 +125,7 @@ h1 {
     color: #ffffff;
 }
 
-/* Estilos para el Tipo de Usuario (etiquetas de color) */
+
 .type-estudiante {
     background-color: rgba(0, 153, 51, 0.6);
     color: #ccffcc;
@@ -180,12 +180,12 @@ h1 {
             const response = await fetch('/api/getUsers'); 
             
             if (!response.ok) {
-                // Corregido: Si no es OK (404, 500), NO intentamos parsear JSON
-                // En su lugar, lanzamos un error claro con el código de estado.
+                
+                
                 throw new Error(`API Fallida o no encontrada (Código: ${response.status}). Verifique la ruta del fichero API.`);
             }
 
-            // Si es OK (200), leemos el JSON
+            
             const result = await response.json();
             const users = result.data;
             

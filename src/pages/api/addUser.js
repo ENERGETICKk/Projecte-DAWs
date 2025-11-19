@@ -9,7 +9,7 @@ export async function POST({ request }) {
     
     const { nombre, apellidos, email, tipo_usuario } = body;
 
-    // Validación
+    
     if (!nombre || !apellidos || !email || !tipo_usuario) {
       console.log('❌ Validación fallida - campos vacíos');
       return new Response(
@@ -31,7 +31,7 @@ export async function POST({ request }) {
       fecha_creacion: fechacreacion
     });
 
-    // Insertar en Supabase
+    
     const { data, error } = await supabase
       .from('usuarios')
       .insert([

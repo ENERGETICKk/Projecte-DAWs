@@ -4,11 +4,11 @@ export async function GET() {
   console.log('🔵 API llamada - Obtener Usuarios');
 
   try {
-    //.select('nombre, apellidos, email, tipo_usuario')
+    
     const { data, error } = await supabase
       .from('usuarios')
       .select('*')
-      .order('fecha_creacion', { ascending: false }); // Ordenar por fecha de creación
+      .order('fecha_creacion', { ascending: false }); 
 
     if (error) {
       console.error('❌ ERROR SUPABASE al obtener usuarios:', error);

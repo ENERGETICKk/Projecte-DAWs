@@ -1,4 +1,4 @@
-// consultas.js
+
 import { supabase } from './supabaseClient.js';
 import readline from 'readline';
 
@@ -33,7 +33,7 @@ function mostrarUsuarios(usuarios) {
   console.log(`\n📈 Total: ${usuarios.length} usuario(s)\n`);
 }
 
-// Consultas
+
 async function consultarTodos() {
   const { data, error } = await supabase.from('usuarios').select('*');
   if (error) throw error;
@@ -101,7 +101,7 @@ async function consultarEstadisticas() {
   console.log('═══════════════════════════════════════\n');
 }
 
-// Menú principal
+
 async function menu() {
   console.clear();
   console.log('\n╔═══════════════════════════════════════╗');
@@ -148,5 +148,5 @@ async function menu() {
   menu();
 }
 
-// Ejecutar menú
+
 menu();
