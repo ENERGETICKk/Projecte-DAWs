@@ -2,6 +2,12 @@
 <div class="container">
     <footer>
         <p style="text-align: center; color: grey; padding: 50px;">&copy; 2026 JKA Systems. All rights reserved.</p>
+        <div class="logos">
+          <img src="/file-type-html.svg" alt="css">
+          <img src="/file-type-css.svg" alt="css">
+          <img src="/file-type-js.svg" alt="css">
+          <img src="/brand-supabase.svg" alt="">
+        </div>
     </footer>
 </div>
 
@@ -12,20 +18,57 @@
   border-top: 1px solid rgba(0, 204, 255, 0.4);
   box-shadow: 0 -5px 20px rgba(0, 153, 255, 0.3);
   padding: 2rem 0;
+  margin-top: auto;
 }
 
 .container footer p {
-  text-align: center;
   color: #00ccff;
-  font-family: "Rajdhani", sans-serif;
   font-size: 1rem;
   text-shadow: 0 0 5px #00ffff, 0 0 15px #3399ff;
-  margin: 0;
+  transition: all 0.3s ease;
+  transform: scale(1);
 }
 
 .container footer p:hover {
   color: #00ffff;
   text-shadow: 0 0 15px #00ffff, 0 0 35px #3399ff;
+  transform: ;
 }
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+.logos{
+  display: flex;
+  gap: 3rem;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.logos img{
+  width: 3rem;
+  height: auto;
+  filter: 
+    drop-shadow(0 0 5px #00ffff)
+    drop-shadow(0 0 15px #3399ff);
+  transform: scale(1.08);
+  transition: all 0.3s ease;
+
+}
+
+.logos img:hover{
+  filter:
+    drop-shadow(0 0 15px #00ffff)
+    drop-shadow(0 0 35px #3399ff);
+  transform: scale(1.15) rotate(2deg);
+}
+
 
 </style>

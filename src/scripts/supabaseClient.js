@@ -1,19 +1,17 @@
-// supabase.js
+// src/scripts/supabaseClient.js
+
 import { createClient } from '@supabase/supabase-js';
-import dotenv from "dotenv";
-dotenv.config();
 
-const SUPABASE_URL = process.env.SUPABASE_URL;
-const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY;
+// **IMPORTANTE:** Acceder a las variables sin el prefijo PUBLIC_ si no lo usaste en el .env
+const SUPABASE_URL = import.meta.env.SUPABASE_URL;
+const SUPABASE_ANON_KEY = import.meta.env.SUPABASE_ANON_KEY;
 
+// **Añadir el chequeo que falla para que veas qué pasa**
 if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
-  console.error("❌ Faltan variables de entorno SUPABASE_URL o SUPABASE_ANON_KEY");
-  process.exit(1);
-}else{
-  console.log("🟢🟢🟢")
+    console.error("❌ Faltan variables de entorno para Supabase. URL:", SUPABASE_URL, "KEY:", SUPABASE_ANON_KEY);
+    // Si llegas aquí, las variables son undefined o null, por eso no sale "Conectado".
+} else {
+    console.log("🟢 Conectado Supabase 🟢"); 
 }
 
 export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-
-// Para ejecutar es con node <nombreArchivo>.js

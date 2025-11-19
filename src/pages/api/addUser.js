@@ -1,17 +1,39 @@
-import { supabase } from '../../scripts/supabaseClient.js';
+import { supabase } from '../../scripts/supabaseClient';
 
-export async function post({ request }) {
+console.log("Api existe")
+
+export async function POST({ request }) {
+  console.log('🔵 API llamada - Inicio');
+  
   try {
     const body = await request.json();
-    const { nombre, apellidos, email, tipo_user } = body;
+    console.log('📦 Body recibido:', body);
+    
+    const { nombre, apellidos, email, tipo_usuario } = body;
 
-    if (!nombre || !apellidos || !email || !tipo_user) {
+    // Validación
+    if (!nombre || !apellidos || !email || !tipo_usuario) {
+      console.log('❌ Validación fallida - campos vacíos');
       return new Response(
         JSON.stringify({ error: 'Todos los campos son obligatorios' }),
-        { status: 400 }
+        { 
+          status: 400,
+          headers: { 'Content-Type': 'application/json' }
+        }
       );
     }
 
+    const fechacreacion = new Date().toISOString();
+    
+    console.log('📝 Intentando insertar:', {
+      nombre: nombre.trim(),
+      apellidos: apellidos.trim(),
+      email: email.trim(),
+      tipo_usuario: tipo_usuario,
+      fecha_creacion: fechacreacion
+    });
+
+    // Insertar en Supabase
     const { data, error } = await supabase
       .from('usuarios')
       .insert([
@@ -19,18 +41,49 @@ export async function post({ request }) {
           nombre: nombre.trim(),
           apellidos: apellidos.trim(),
           email: email.trim(),
-          tipo_user,
-          fecha_creacion: new Date().toISOString()
+          tipo_usuario: tipo_usuario,
+          fecha_creacion: fechacreacion
         }
       ])
       .select();
 
     if (error) {
-      return new Response(JSON.stringify({ error: error.message }), { status: 500 });
+      console.error('❌ ERROR SUPABASE:', error);
+      return new Response(
+        JSON.stringify({ 
+          error: error.message,
+          details: error
+        }), 
+        { 
+          status: 500,
+          headers: { 'Content-Type': 'application/json' }
+        }
+      );
     }
 
-    return new Response(JSON.stringify({ data }), { status: 200 });
+    console.log('✅ Usuario insertado:', data);
+    
+    return new Response(
+      JSON.stringify({ 
+        success: true,
+        data: data 
+      }), 
+      { 
+        status: 200,
+        headers: { 'Content-Type': 'application/json' }
+      }
+    );
+
   } catch (err) {
-    return new Response(JSON.stringify({ error: err.message }), { status: 500 });
+    console.error('💥 ERROR CATCH:', err);
+    return new Response(
+      JSON.stringify({ 
+        error: err.message 
+      }), 
+      { 
+        status: 500,
+        headers: { 'Content-Type': 'application/json' }
+      }
+    );
   }
 }

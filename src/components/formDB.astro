@@ -18,70 +18,78 @@ import '../styles/global.css';
       <label for="email" class="form-label">Email</label>
       <input type="email" id="email" name="email" placeholder="Email del estudiante" class="input-field" required />
     </li>
-    <li>
-      <label for="tipo_user" class="form-label">Tipo de Usuario</label>
-      <select id="tipo_user" name="tipo_user" class="input-field" required>
-        <option value="estudiante">Estudiante</option>
-        <option value="profesor">Profesor</option>
-        <option value="administrador">Administrador</option>
-      </select>
-    </li>
+  <li>
+    <label for="tipo_usuario" class="form-label">Tipo de Usuario</label>
+    <select id="tipo_usuario" name="tipo_usuario" class="input-field" required>
+      <option value="estudiante">Estudiante</option>
+      <option value="profesor">Profesor</option>
+      <option value="personal">Personal de Servicio</option>
+    </select>
+  </li>
     <button type="submit" class="submit">Enviar</button>
     <div id="mensaje" class="mensaje"></div>
   </div>
 </form>
 
-<script type="module">
-const form = document.getElementById('user-form');
-const mensaje = document.getElementById('mensaje');
+<script>
+
+const form = document.getElementById('user-form')! as HTMLFormElement;
+const mensaje = document.getElementById('mensaje')!;
 
 form.addEventListener('submit', async (e) => {
-  e.preventDefault();
+  e.preventDefault();
+  
+  console.log('📝 Formulario enviado');
 
-  const formData = new FormData(form);
-  const userData = {
-    nombre: formData.get('nombre'),
-    apellidos: formData.get('apellidos'),
-    email: formData.get('email'),
-    tipo_user: formData.get('tipo_user')
-  };
+  // 💡 CAMBIO: Usar FormData para obtener todos los campos del formulario
+  const formData = new FormData(form);
+  const userData = Object.fromEntries(formData.entries());
 
-  // Validación
-  if (!userData.nombre || !userData.apellidos || !userData.email || !userData.tipo_user) {
-    mensaje.textContent = '❌ Todos los campos son obligatorios';
-    mensaje.className = 'mensaje error';
-    return;
-  }
+  console.log('📦 Datos a enviar:', userData);
 
-  try {
-    mensaje.textContent = '⏳ Guardando usuario...';
-    mensaje.className = 'mensaje loading';
+  // La validación sigue siendo útil aunque los campos tienen 'required' en el HTML
+  if (!userData.nombre || !userData.apellidos || !userData.email || !userData.tipo_usuario) {
+    mensaje.textContent = '❌ Todos los campos son obligatorios';
+    mensaje.className = 'mensaje error';
+    return;
+  }
+  
+  // El resto del bloque try...catch permanece igual
 
-    const res = await fetch('/api/addUser', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(userData)
-    });
+  try {
+    mensaje.textContent = '⏳ Guardando usuario...';
+    mensaje.className = 'mensaje loading';
 
-    const result = await res.json();
+    console.log('🚀 Enviando a API...');
 
-    if (!res.ok) throw new Error(result.error || 'Error desconocido');
+    const res = await fetch('/api/addUser', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      // Enviamos el objeto userData obtenido de FormData
+      body: JSON.stringify(userData)
+    });
 
-    mensaje.textContent = '✅ Usuario creado correctamente!';
-    mensaje.className = 'mensaje success';
-    form.reset();
+    console.log('📨 Respuesta recibida:', res.status);
 
-    setTimeout(() => {
-      mensaje.textContent = '';
-      mensaje.className = 'mensaje';
-    }, 3000);
+    const result = await res.json();
+    console.log('📦 Resultado:', result);
 
-    console.log('Usuario creado:', result.data);
-  } catch (err) {
-    mensaje.textContent = `❌ Error: ${err.message}`;
-    mensaje.className = 'mensaje error';
-    console.error(err);
-  }
+    if (!res.ok) throw new Error(result.error || 'Error desconocido');
+
+    mensaje.textContent = '✅ Usuario creado correctamente!';
+    mensaje.className = 'mensaje success';
+    form.reset();
+
+    setTimeout(() => {
+      mensaje.textContent = '';
+      mensaje.className = 'mensaje';
+    }, 3000);
+
+  } catch (err) {
+    mensaje.textContent = `❌ Error: ${err.message}`;
+    mensaje.className = 'mensaje error';
+    console.error('💥 Error:', err);
+  }
 });
 </script>
 

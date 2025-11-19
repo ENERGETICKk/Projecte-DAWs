@@ -28,13 +28,13 @@ async function añadirUsuario() {
     console.log('\nTipo de usuario:');
     console.log('1. Estudiant');
     console.log('2. Professor');
-    console.log('3. Admin');
+    console.log('3. Personal de Servei');
     const tipoOpcion = await pregunta('\nSelecciona una opción (1-3): ');
     
     const tipos = {
       '1': 'estudiante',
       '2': 'profesor',
-      '3': 'administrador'
+      '3': 'personal'
     };
     
     const tipo_usuario = tipos[tipoOpcion] || 'estudiant';

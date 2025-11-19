@@ -4,40 +4,15 @@ import readline from 'readline';
 
 
 
-// Consultar todos los usuarios
-// const { data: usuarios, error: errorUsuarios } = await supabase
-//   .from("usuarios")
-//   .select("*");
-
-// if (errorUsuarios) console.error("❌ Error consultando usuarios:", errorUsuarios);
-// else console.log("👤 Usuarios:", usuarios);
-
-
-// Consultar las materias de un profesor
-// const { data: aulas_zonas, error: errorAulas_Zonas } = await supabase
-//   .from("aulas_zonas")
-//   .select("*");
-
-// if (errorAulas_Zonas) console.error("❌ Error consultando materias:", errorMaterias);
-// else console.log("📘 Materias del profesor 1:", aulas_zonas);
-
-
-
-
-
-
-// Crear interfaz de lectura
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
 
-// Función auxiliar para preguntar por consola
 function pregunta(texto) {
   return new Promise((resolve) => rl.question(texto, resolve));
 }
 
-// Mostrar usuarios en consola
 function mostrarUsuarios(usuarios) {
   console.log('\n📊 USUARIOS ENCONTRADOS');
   console.log('═══════════════════════════════════════════════════════════════\n');
@@ -83,7 +58,7 @@ async function consultarPorTipo() {
   const { data, error } = await supabase
     .from('usuarios')
     .select('*')
-    .eq('tipo_user', tipo);
+    .eq('tipo_usuario', tipo);
 
   if (error) throw error;
   mostrarUsuarios(data);
@@ -110,11 +85,11 @@ async function consultarPorNombre() {
 }
 
 async function consultarEstadisticas() {
-  const { data, error } = await supabase.from('usuarios').select('tipo_user');
+  const { data, error } = await supabase.from('usuarios').select('tipo_usuario');
   if (error) throw error;
 
   const stats = data.reduce((acc, user) => {
-    acc[user.tipo_user] = (acc[user.tipo_user] || 0) + 1;
+    acc[user.tipo_usuario] = (acc[user.tipo_usuario] || 0) + 1;
     return acc;
   }, {});
 
