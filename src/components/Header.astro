@@ -11,8 +11,11 @@ import '../styles/global.css';
 	<img src={background.src} alt="Background" class="background" />
     <header class="header">
         <div class="logo">
-            <a href="/user">
+            <!-- <a href="/user">
                 <img src={astroLogo.src} alt="Astro Logo" width="50"/>
+            </a> -->
+            <a href="/user">
+                <img src="/logo.png" alt="logoText" id="logoTexto">
             </a>
         </div>
         <div class="links">
@@ -97,6 +100,16 @@ import '../styles/global.css';
   pointer-events: none;
   filter: brightness(0.7) contrast(1.2);
   transition: filter 0.3s ease;
+}
+
+#logoTexto{
+  border-radius: 10px;
+  width: 15rem;
+}
+
+.logo{
+  display: flex;
+  gap: 3rem;
 }
 
 
