@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev":  "astro dev",
+    "dev": "astro dev",
     "init": "node src/scripts/supabaseClient.js",
     "select": "node src/scripts/selectUsuarios.js",
     "insert": "node src/scripts/insertUsuarios.js",
@@ -12,6 +12,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/vercel": "^9.0.2",
     "@supabase/supabase-js": "^2.79.0",
     "astro": "^5.15.2",
     "dotenv": "^17.2.3"
