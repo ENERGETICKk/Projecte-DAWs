@@ -1,110 +1,123 @@
 ---
-import Sample from '../components/sample.astro';
-import '../styles/global.css';
-
+import Sample from "../components/sample.astro"
 ---
-<Sample>
-<div class="container">
-    <h1>Lista de Usuarios Registrados</h1>
-    <div id="loading" class="loading">Cargando datos... ⏳</div>
-    <div id="error-message" class="error-message"></div>
-    
-    <div class="table-wrapper">
-        <table id="user-table" class="data-table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre Completo</th>
-                    <th>Email</th>
-                    <th>Tipo de Usuario</th>
-                    <th>Fecha de Creación</th>
-                </tr>
-            </thead>
-            <tbody>
-                </tbody>
-        </table>
-    </div>
 
-</div>
+<Sample>
+    <div class="container">
+        <h1>Lista de Usuarios Registrados</h1>
+        <div id="loading" class="loading"></div>
+        <div id="error-message" class="error-message"></div>
+        
+        <div class="table-wrapper">
+            <table id="user-table" class="data-table">
+                <colgroup> 
+                    <col style="width: 600px; text-align: center;"> 
+                    <col style="width: 20%; text-align: center;"> 
+                    <col style="width: 10%; text-align: center;"> 
+                    <col style="width: 15%; text-align: center;"> 
+                    <col style="width: 18%; text-align: center;"> 
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre Completo</th>
+                        <th>Email</th>
+                        <th>Tipo de Usuario</th>
+                        <th>Fecha de Creación</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </Sample>
 
 <script>
-    const tableBody = document.querySelector('#user-table tbody')!;
-    const loadingMessage = document.getElementById('loading')!;
-    const errorMessage = document.getElementById('error-message')!;
-    
-    async function fetchAndRenderUsers() {
-        loadingMessage.style.display = 'block';
-        errorMessage.style.display = 'none';
-        tableBody.innerHTML = '';
+    // Función para manejar la lógica de carga y renderizado
+    async function fetchAndRenderUsers(tableId, loadingId, errorId) {
+        const tableBody = document.querySelector(`#${tableId} tbody`);
+        const loadingMessage = document.getElementById(loadingId);
+        const errorMessage = document.getElementById(errorId);
+        
+        if (!tableBody || !loadingMessage || !errorMessage) return;
 
-        try {
-            const response = await fetch('/api/getUser'); 
-            
-            if (!response.ok) {
-                
-                
-                throw new Error(`API Fallida o no encontrada (Código: ${response.status}). Verifique la ruta del fichero API.`);
-            }
+        loadingMessage.style.display = 'block';
+        errorMessage.style.display = 'none';
+        tableBody.innerHTML = '';
 
+        try {
+            const response = await fetch('/api/getUser'); 
             
-            const result = await response.json();
-            const users = result.data;
-            
-            if (users.length === 0) {
-                tableBody.innerHTML = '<tr><td colspan="5" class="no-data">No hay usuarios registrados en la base de datos.</td></tr>';
-            } else {
-                users.forEach(user => {
-                    const row = tableBody.insertRow();
-                    
-                    const dateOptions = { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
-                    const formattedDate = new Date(user.fecha_creacion).toLocaleDateString('es-ES', dateOptions);
+            if (!response.ok) {
+                throw new Error(`API Fallida o no encontrada (Código: ${response.status}). Verifique la ruta del fichero API.`);
+            }
 
-                    const tipoUsuario = user.tipo_usuario.charAt(0).toUpperCase() + user.tipo_usuario.slice(1);
+            const result = await response.json();
+            const users = result.data;
+            
+            if (users.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="5" class="no-data">No hay usuarios registrados en la base de datos.</td></tr>';
+            } else {
+                users.forEach(user => {
+                    const row = tableBody.insertRow();
+                    
+                    const dateOptions = { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+                    const formattedDate = new Date(user.fecha_creacion).toLocaleDateString('es-ES', dateOptions);
 
-                    row.innerHTML = `
-                        <td>${user.usuarios_id}</td>
-                        <td class="name-cell">${user.nombre} ${user.apellidos}</td>
-                        <td>${user.email}</td>
-                        <td class="type-${user.tipo_usuario}">${tipoUsuario}</td>
-                        <td>${formattedDate}</td>
-                    `;
-                });
-            }
+                    const tipoUsuario = user.tipo_usuario.charAt(0).toUpperCase() + user.tipo_usuario.slice(1);
 
-        } catch (error) {
-            console.error('💥 Error al cargar usuarios:', error);
-            errorMessage.textContent = `Error al cargar los datos: ${error.message}`;
-            errorMessage.style.display = 'block';
-            tableBody.innerHTML = '<tr><td colspan="5" class="error-data">Fallo en la conexión.</td></tr>';
-        } finally {
-            loadingMessage.style.display = 'none';
-        }
-    }
+                    row.innerHTML = `
+                        <td>${user.usuarios_id}</td>
+                        <td class="name-cell">${user.nombre} ${user.apellidos}</td>
+                        <td>${user.email}</td>
+                        <td class="type-${user.tipo_usuario}">${tipoUsuario}</td>
+                        <td>${formattedDate}</td>
+                    `;
+                });
+            }
 
-    document.addEventListener('DOMContentLoaded', fetchAndRenderUsers);
+        } catch (error) {
+            console.error('💥 Error al cargar usuarios:', error);
+            errorMessage.textContent = `Error al cargar los datos: ${error.message}`;
+            errorMessage.style.display = 'block';
+            tableBody.innerHTML = '<tr><td colspan="5" class="error-data">Fallo en la conexión.</td></tr>';
+        } finally {
+            loadingMessage.style.display = 'none';
+        }
+    }
+
+    // Inicializa la carga de la primera tabla
+    document.addEventListener('DOMContentLoaded', () => {
+        fetchAndRenderUsers('user-table', 'loading', 'error-message');
+        // Inicializa la carga de la segunda tabla
+        fetchAndRenderUsers('user-table-2', 'loading-2', 'error-message-2'); 
+    });
 </script>
 
 
 <style>
+
+
 .container {
     max-width: 1200px;
     margin: 50px auto;
     padding: 24px 20px 32px;
+    margin-bottom: 20rem;
+    margin-top: 10rem;
+    text-align: center;
 }
 
-/* Título */
 h1 {
     text-align: center;
     color: #00ffff;
-    font-size: 2.3rem;
+    font-size: 3rem;
     font-weight: 700;
     margin-bottom: 28px;
     text-shadow: 0 0 12px #00ccff;
     letter-spacing: 0.05em;
 }
 
-/* Mensajes de estado */
 .loading,
 .error-message {
     text-align: center;
@@ -127,10 +140,9 @@ h1 {
     border: 1px solid #ff3366;
 }
 
-/* Contenedor de tabla (scroll, fondo, sombra) */
 .table-wrapper {
     overflow-x: auto;
-    max-height: 70vh;                 /* Scroll vertical si hay muchos usuarios */
+    max-height: 70vh;
     background: radial-gradient(circle at top, rgba(0, 51, 102, 0.9), rgba(0, 0, 30, 0.9));
     border-radius: 14px;
     box-shadow: 0 0 25px rgba(0, 153, 255, 0.5);
@@ -138,7 +150,6 @@ h1 {
     padding: 6px;
 }
 
-/* Scrollbar custom (compatible con navegadores Chromium) */
 .table-wrapper::-webkit-scrollbar {
     height: 8px;
     width: 8px;
@@ -151,24 +162,22 @@ h1 {
     background: rgba(0, 0, 30, 0.9);
 }
 
-/* Tabla */
 .data-table {
     width: 100%;
     border-collapse: collapse;
     color: #e0f7ff;
     font-family: 'Consolas', 'Courier New', monospace;
     min-width: 800px;
-    font-size: 0.95rem;
+    font-size: 1.3rem;
 }
 
-/* Cabecera: pegajosa al hacer scroll */
 .data-table thead th {
     position: sticky;
     top: 0;
     z-index: 2;
     background: linear-gradient(90deg, #003366, #004d99);
     color: #00ffff;
-    padding: 14px 12px;
+    padding: 14px 20px;
     text-align: left;
     text-transform: uppercase;
     font-weight: 700;
@@ -178,19 +187,17 @@ h1 {
 }
 
 
-/* Celdas del cuerpo */
 .data-table tbody td {
-    padding: 11px 12px;
+    padding: 2rem 5rem;
     border-bottom: 1px solid rgba(0, 102, 153, 0.5);
     transition: background-color 0.25s ease, transform 0.1s ease;
 }
 
-/* Zebra stripes */
-.data-table tbody tr:nth-child(even) {
+
+ .data-table tbody tr:nth-child(even) {
     background-color: rgba(0, 51, 102, 0.4);
 }
 
-/* Hover row */
 .data-table tbody tr:hover {
     background-color: rgba(0, 153, 255, 0.35);
     color: #ffffff;
@@ -198,20 +205,17 @@ h1 {
     transform: translateY(-1px);
 }
 
-/* Columna ID */
 .data-table td:nth-child(1) {
     font-weight: 600;
     color: #66ccff;
     text-align: center;
 }
 
-/* Nombre */
 .name-cell {
     color: #ffffff;
     font-weight: 500;
 }
 
-/* Email: dejar que corte si es largo */
 .data-table td:nth-child(3) {
     max-width: 260px;
     word-wrap: break-word;
